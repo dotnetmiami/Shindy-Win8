@@ -8,7 +8,7 @@ namespace EventLibrary.Entities
 
     public class Group
     {
-        public int GroupID { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

@@ -7,9 +7,9 @@ namespace EventLibrary.Entities
 {
     public class Sponsor
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
 
-        public int SponsorID { get; set; }
+        public string Name { get; set; }
 
         public string ImageURI { get; set; }
 

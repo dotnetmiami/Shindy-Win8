@@ -87,7 +87,7 @@
                 "PersonID" : 103 ,
                 "FirstName" : "Richie" , 
                 "LastName" : "Rump" ,
-                "Email" : "jorriss@gmail.com" , 
+                "Email" : "" , 
                 "PersonURI" : "http://jorriss.net" ,
                 "Bio" : "<p><strong>Richie Rump</strong> is a software developer, data architect and project manager. He currently helps companies solve their data challenges using SQL Server and .Net. He holds the Project Management Professional (PMP), Certified Scrum Master (CSM) and various Microsoft development certifications. Richie is also the founder of the dotNet Miami, a community focused on enterprise development with .NET and SQL Server. His previous experience includes working with Burger King, FPL, Ryder and Walt Disney World.</p>"
             } ]
@@ -286,7 +286,7 @@
                 "PersonID" : 103 ,
                 "FirstName" : "Richie" , 
                 "LastName" : "Rump" ,
-                "Email" : "jorriss@gmail.com" , 
+                "Email" : "" , 
                 "PersonURI" : "http://jorriss.net" ,
                 "Bio" : "<p><strong>Richie Rump</strong> is a software developer, data architect and project manager. He currently helps companies solve their data challenges using SQL Server and .Net. He holds the Project Management Professional (PMP), Certified Scrum Master (CSM) and various Microsoft development certifications. Richie is also the founder of the dotNet Miami, a community focused on enterprise development with .NET and SQL Server. His previous experience includes working with Burger King, FPL, Ryder and Walt Disney World.</p>"
             } ]
@@ -370,7 +370,7 @@
                 "PersonID" : 103 ,
                 "FirstName" : "Richie" , 
                 "LastName" : "Rump" ,
-                "Email" : "jorriss@gmail.com" , 
+                "Email" : "" , 
                 "PersonURI" : "http://jorriss.net" ,
                 "Bio" : "<p><strong>Richie Rump</strong> is a software developer, data architect and project manager. He currently helps companies solve their data challenges using SQL Server and .Net. He holds the Project Management Professional (PMP), Certified Scrum Master (CSM) and various Microsoft development certifications. Richie is also the founder of the dotNet Miami, a community focused on enterprise development with .NET and SQL Server. His previous experience includes working with Burger King, FPL, Ryder and Walt Disney World.</p>"
             } ]

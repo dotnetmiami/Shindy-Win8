@@ -7,7 +7,7 @@ namespace EventLibrary.Entities
 {
     public class Session
     {
-        public int SessionID { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 

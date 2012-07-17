@@ -7,7 +7,7 @@ namespace EventLibrary.Entities
 {
     public class Giveaway
     {
-        public int GiveawayID { get; set;}
+        public int Id { get; set;}
 
         public string Name { get; set;}
 

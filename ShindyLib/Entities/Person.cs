@@ -7,7 +7,7 @@ namespace EventLibrary.Entities
 
     public class Person
     {
-        public int PersonID { get; set; }
+        public int Id { get; set; }
 
         public string FirstName { get; set; }
 
