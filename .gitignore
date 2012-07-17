@@ -6,5 +6,5 @@ obj
 TestResults
 
 # User file
-.user
-.suo
+*.user
+*.suo
