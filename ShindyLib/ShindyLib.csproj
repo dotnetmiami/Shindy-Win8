@@ -34,6 +34,9 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Abstractions">
       <HintPath>..\packages\RavenDB.Client.1.0.960\lib\net40\Raven.Abstractions.dll</HintPath>
     </Reference>
@@ -43,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +58,9 @@
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Giveaway.cs" />
     <Compile Include="Entities\Group.cs" />
+    <Compile Include="Entities\JanrainPostData.cs" />
+    <Compile Include="Entities\JanrainRequestData.cs" />
+    <Compile Include="Entities\JanrainUserProfile.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Location.cs" />
     <Compile Include="Entities\Person.cs" />
@@ -62,9 +69,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Session.cs" />
     <Compile Include="Entities\Sponsor.cs" />
+    <Compile Include="ServiceBrokers\JanrainBroker.cs" />
     <Compile Include="ServiceBrokers\PersonSvcBroker.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Shindy">
+</Property><Property Name="Solution File" Value="C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Shindy.sln">
+</Property><Property Name="User Options File" Value="C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Shindy.v11.suo">
+</Property><Property Name="Date" Value="Saturday, July 28, 2012">
+</Property><Property Name="Time" Value="19:46 PM">
+</Property></Properties><Event ErrorLevel="3" Project="" Source="Shindy.sln" Description="SafeUpgrade">
+</Event><Event ErrorLevel="0" Project="" Source="Shindy.sln" Description="File successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\Shindy.sln">
+</Event><Event ErrorLevel="0" Project="" Source="Shindy.v11.suo" Description="File successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\Shindy.v11.suo">
+</Event><Event ErrorLevel="3" Project="ShindyWebService" Source="ShindyWebService\ShindyWebService.csproj" Description="SafeUpgrade">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\ShindyWebService.csproj" Description="Project file successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\ShindyWebService\ShindyWebService.csproj">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\ShindyWebService.csproj.user" Description="Project user file successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\ShindyWebService\ShindyWebService.csproj.user">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\Modules\PersonModule.cs" Description="File successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\ShindyWebService\Modules\PersonModule.cs">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\ShindyWebService\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\Web.config" Description="File successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\ShindyWebService\Web.config">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\Web.Debug.config" Description="File successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\ShindyWebService\Web.Debug.config">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\Web.Release.config" Description="File successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\ShindyWebService\Web.Release.config">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\packages.config" Description="File successfully backed up as C:\Users\dnicolas\Dropbox\StartupProjects\Shindy\Backup\ShindyWebService\packages.config">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\ShindyWebService.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="ShindyWebService" Source="ShindyWebService\ShindyWebService.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Shindy.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="Shindy.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="ShindyWebService" Source="ShindyWebService\ShindyWebService.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\packages\DotNetOpenAuth.3.5.0.12037-refresh3\lib\DotNetOpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlTags">
+      <HintPath>..\packages\HtmlTags.1.0.0.63\lib\4.0\HtmlTags.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -45,6 +51,9 @@
     </Reference>
     <Reference Include="Raven.Client.Lightweight">
       <HintPath>..\packages\RavenDB.Client.1.0.960\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleSocialAuth.MVC3">
+      <HintPath>..\packages\SimpleSocialAuth.MVC3.1.0.0-refresh4\lib\SimpleSocialAuth.MVC3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -60,16 +69,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShindyLib\ShindyLib.csproj">
-      <Project>{E984AD31-8077-45BE-A3F5-5BD237077B57}</Project>
-      <Name>EventLibrary</Name>
-    </ProjectReference>
+    <Content Include="event.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="event.js" />
+    <ProjectReference Include="..\ShindyLib\ShindyLib.csproj">
+      <Project>{e984ad31-8077-45be-a3f5-5bd237077b57}</Project>
+      <Name>ShindyLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

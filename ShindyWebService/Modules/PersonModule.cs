@@ -4,6 +4,8 @@ using System.Web;
 using System.Linq;
 using System.Collections.Generic;
 using EventLibrary.ServiceBrokers;
+using EventLibrary.Entities;
+using Nancy.ModelBinding;
 
 namespace EventWebService
 {
@@ -14,10 +16,15 @@ namespace EventWebService
     {
         public PersonModule() :base("/Person")
         {
-            Get["/"] = x =>
+            Post["/signin"] = x =>
             {
-                return Response.AsJson(new PersonSvcBroker().GetPersons());
+                var test = this.Bind<JanrainPostData>();
+                var user_profile = new JanrainBroker().GetProfile(test.token);
+
+                return this.Response.AsJson(user_profile);
             };
+
+           
         }
     }
 }

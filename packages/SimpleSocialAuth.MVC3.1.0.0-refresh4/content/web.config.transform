@@ -1,0 +1,12 @@
+<configuration>
+  <appSettings>
+    <!-- Keys and Secrets from OAuth providers -->
+    <add key="twitterConsumerKey" value="" />
+    <add key="twitterConsumerSecret" value="" />
+    <add key="facebookAppID" value=""/>
+    <add key="facebookAppSecret" value=""/>
+    <add key="googleAppID" value=""/>
+    <add key="googleAppSecret" value=""/>
+    <!-- -->
+  </appSettings>
+</configuration>
