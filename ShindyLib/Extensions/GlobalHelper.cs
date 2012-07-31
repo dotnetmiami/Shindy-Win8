@@ -19,6 +19,28 @@ namespace EventLibrary.Extensions
         }
 
         /// <summary>
+        /// Generic helper which returns null if caller is not null
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsNotNull<T>(this T obj)
+        {
+            return obj != null;
+        }
+
+        /// <summary>
+        /// Generic helper which returns true if caller is null
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsNull<T>(this T obj)
+        {
+            return obj == null;
+        }
+
+        /// <summary>
         /// Checks if collection contains element based on lambda filter criteria
         /// </summary>
         /// <param name="modifier">the lambda expression</param>
