@@ -8,6 +8,7 @@ using EventLibrary.Entities;
 using Raven.Client.Document;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using Raven.Client.Extensions;
 
 namespace EventTestConsole
 {
@@ -26,14 +27,62 @@ namespace EventTestConsole
             var documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             documentStore.Initialize();
 
-            using (var session = documentStore.OpenSession())
+            documentStore.DatabaseCommands.EnsureDatabaseExists("ShindyTest");
+
+            List<Group> HostedGroups = new List<Group>();
+            List<Person> Speakers = new List<Person>();
+            List<Sponsor> Sponsors = new List<Sponsor>();
+
+            using (var session = documentStore.OpenSession("ShindyTest"))
             {
-                foreach(Event e in events.Events)
-                session.Store(e);
-                session.SaveChanges(); // will send the change to the database
+                foreach (Event e in events.Events)
+                {
+                    if (e.HostedGroups != null)
+                    {
+                        foreach (Group hg in e.HostedGroups)
+                        {
+                            if (HostedGroups.Exists(i => i.Name == hg.Name) ==  false)
+                            {
+                                HostedGroups.Add(hg);
+                                session.Store(hg);
+                            }
+                        }
+                    }
+                    if (e.Sessions != null)
+                    {
+                        foreach (Session sess in e.Sessions)
+                        {
+                            foreach (Person sp in sess.Speakers)
+                            {
+                                if (Speakers.Exists(i => i.FirstName + i.LastName == sp.FirstName + sp.LastName) == false)
+                                {
+                                    Speakers.Add(sp);
+                                    session.Store(sp);
+                                }
+                            }
+                        }
+                    }
+                    if (e.Sponsors != null)
+                    {
+                        if (e.Sponsors != null)
+                        {
+                            foreach (Sponsor spon in e.Sponsors)
+                            {
+                                if (Sponsors.Exists(i => i.Name == spon.Name) == false)
+                                {
+                                    Sponsors.Add(spon);
+                                    session.Store(spon);
+                                }
+                            }
+                        }
+                    }
+                    session.Store(e);
+                }
+
+                 session.SaveChanges(); // will send the change to the database
+
             }
 
-            //System.Diagnostics.Debug.WriteLine(events.Events.Count);
         }
 
         public class EventWrapper
@@ -56,14 +105,14 @@ namespace EventTestConsole
                 try
                 {
                     json_data = w.DownloadString(url);
- 
+
                 }
                 catch (Exception) { }
                 // if string with JSON data is not empty, deserialize it to class and return its instance 
                 return !string.IsNullOrEmpty(json_data) ? JsonConvert.DeserializeObject<T>(json_data) : new T();
             }
-        } 
- 
+        }
+
     }
 
 

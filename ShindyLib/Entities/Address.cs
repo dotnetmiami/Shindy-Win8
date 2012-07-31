@@ -7,7 +7,7 @@ namespace EventLibrary.Entities
 {
     public class Address
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Street { get; set; }
 
