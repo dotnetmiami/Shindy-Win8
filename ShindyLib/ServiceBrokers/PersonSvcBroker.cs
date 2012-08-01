@@ -27,6 +27,11 @@ namespace EventLibrary.ServiceBrokers
         {
             SessionProvider = new RavenSessionProvider();            
         }
+
+        public PersonSvcBroker(IRavenSessionProvider sessionProvider)
+        {
+            SessionProvider = sessionProvider;
+        }
         #endregion
 
         #region DATA READS
