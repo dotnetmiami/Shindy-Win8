@@ -14,6 +14,10 @@ namespace EventTestConsole
 {
     class Program
     {
+        // TODO: Add arguments for JSONLoc. If http then use webloader if not then pull the file from disk.
+        // TODO: Add argument for RavenDocLoc.
+        // TODO: Add argument for RavenDBName.
+
         static void Main(string[] args)
         {
             LoadEvents();
@@ -78,11 +82,8 @@ namespace EventTestConsole
                     }
                     session.Store(e);
                 }
-
                  session.SaveChanges(); // will send the change to the database
-
             }
-
         }
 
         public class EventWrapper
