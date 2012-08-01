@@ -69,10 +69,11 @@
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Extensions\EntityHelper.cs" />
     <Compile Include="Extensions\GlobalHelper.cs" />
-    <Compile Include="Interfaces\IServiceBroker.cs" />
+    <Compile Include="Interfaces\IRavenSessionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Session.cs" />
     <Compile Include="Entities\Sponsor.cs" />
+    <Compile Include="RavenSessionProvider.cs" />
     <Compile Include="ServiceBrokers\JanrainBroker.cs" />
     <Compile Include="ServiceBrokers\PersonSvcBroker.cs" />
   </ItemGroup>

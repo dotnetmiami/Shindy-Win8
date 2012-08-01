@@ -104,6 +104,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Extensions\ModuleExtensions.cs" />
     <Compile Include="Modules\AppModule.cs" />
     <Compile Include="Modules\PersonModule.cs" />
@@ -115,7 +116,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ShindyLib\ShindyLib.csproj">
       <Project>{E984AD31-8077-45BE-A3F5-5BD237077B57}</Project>
-      <Name>ShindyLib</Name>
+      <Name>EventLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
