@@ -9,6 +9,8 @@ namespace EventLibrary.Entities
     {
         public string Id { get; set; }
 
+        public string SocialId { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -16,6 +18,8 @@ namespace EventLibrary.Entities
         public string Email { get; set; }
 
         public string PersonURI { get; set; }
+
+        public string PictureURI { get; set; }
 
         public string TwitterName { get; set; }
 

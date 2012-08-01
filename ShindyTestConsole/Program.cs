@@ -3,7 +3,7 @@ using System.Net;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
-
+using System.Configuration;
 using EventLibrary.Entities;
 using Raven.Client.Document;
 using Newtonsoft.Json.Linq;
@@ -13,11 +13,23 @@ using Raven.Client.Extensions;
 namespace EventTestConsole
 {
     class Program
+<<<<<<< HEAD
     {
         // TODO: Add arguments for JSONLoc. If http then use webloader if not then pull the file from disk.
         // TODO: Add argument for RavenDocLoc.
         // TODO: Add argument for RavenDBName.
 
+=======
+    {
+        public static string StoreName
+        {
+            get 
+            {
+                return ConfigurationManager.AppSettings["store_name"];
+            }
+        }
+     
+>>>>>>> 4f9d8f634eddac0bd00d124f9c669b3cdfd60e56
         static void Main(string[] args)
         {
             LoadEvents();
@@ -25,19 +37,18 @@ namespace EventTestConsole
 
         public static void LoadEvents()
         {
-
-            var events = GetJSONData<dnm>("http://localhost/dotnetmiami/event.js");
-
-            var documentStore = new DocumentStore { Url = "http://localhost:8080/" };
+            //Made environment variables configurable for team's convenience 
+            var events = GetJSONData<dnm>(ConfigurationManager.AppSettings["json_url"]);
+            var documentStore = new DocumentStore { Url = ConfigurationManager.AppSettings["raven_proxy"] };
             documentStore.Initialize();
 
-            documentStore.DatabaseCommands.EnsureDatabaseExists("ShindyTest");
+            documentStore.DatabaseCommands.EnsureDatabaseExists(StoreName);
 
             List<Group> HostedGroups = new List<Group>();
             List<Person> Speakers = new List<Person>();
             List<Sponsor> Sponsors = new List<Sponsor>();
 
-            using (var session = documentStore.OpenSession("ShindyTest"))
+            using (var session = documentStore.OpenSession(StoreName))
             {
                 foreach (Event e in events.Events)
                 {
