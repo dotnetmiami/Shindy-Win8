@@ -21,12 +21,12 @@ namespace EventTestConsole
         {
             var options = new Options();
             ICommandLineParser parser = new CommandLineParser();
-            if (parser.ParseArguments(args, options))
-            {
-                if (options.DBName == null) { options.DBName = ConfigurationManager.AppSettings["DBName"]; }
-                if (options.RavenURL == null) { options.RavenURL = ConfigurationManager.AppSettings["RavenURL"]; }
-                if (options.JSONPath == null) { options.JSONPath = ConfigurationManager.AppSettings["JSONPath"]; }
-            }
+
+            parser.ParseArguments(args, options);
+
+            if (options.DBName == null) { options.DBName = ConfigurationManager.AppSettings["DBName"]; }
+            if (options.RavenURL == null) { options.RavenURL = ConfigurationManager.AppSettings["RavenURL"]; }
+            if (options.JSONPath == null) { options.JSONPath = ConfigurationManager.AppSettings["JSONPath"]; }
 
             LoadEvents(options);
 
