@@ -8,8 +8,8 @@
     <ProjectGuid>{B2F175E1-475F-4F55-80D6-0F0465BBE767}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EventTestConsole</RootNamespace>
-    <AssemblyName>EventTestConsole</AssemblyName>
+    <RootNamespace>ShindyDataLoader</RootNamespace>
+    <AssemblyName>ShindyDataLoader</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
