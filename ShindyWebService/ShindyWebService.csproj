@@ -107,6 +107,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Extensions\ModuleExtensions.cs" />
     <Compile Include="Modules\AppModule.cs" />
+    <Compile Include="Modules\EventsModule.cs" />
     <Compile Include="Modules\PersonModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
