@@ -12,9 +12,9 @@ using Raven.Client.Extensions;
 using CommandLine;
 using CommandLine.Text;
 
-namespace EventTestConsole
+namespace ShindyDataLoader
 {
-    class Program
+    public class Program
     {
 
         static void Main(string[] args)
@@ -117,7 +117,7 @@ namespace EventTestConsole
 
 
         // From: http://www.codeproject.com/Tips/397574/Use-Csharp-to-get-JSON-data-from-the-web-and-map-i
-        private static T GetJSONData<T>(string path) where T : new()
+        public static T GetJSONData<T>(string path) where T : new()
         {
             var json_data = string.Empty;
 

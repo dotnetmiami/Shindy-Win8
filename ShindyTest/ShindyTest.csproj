@@ -51,15 +51,22 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoadEventData.cs" />
+    <Compile Include="ShindyDataLoaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShindyDataLoader\ShindyDataLoader.csproj">
+      <Project>{B2F175E1-475F-4F55-80D6-0F0465BBE767}</Project>
+      <Name>ShindyDataLoader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShindyLib\ShindyLib.csproj">
       <Project>{e984ad31-8077-45be-a3f5-5bd237077b57}</Project>
       <Name>ShindyLib</Name>

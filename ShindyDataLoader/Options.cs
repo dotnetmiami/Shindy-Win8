@@ -5,9 +5,9 @@ using System.Text;
 using CommandLine;
 using CommandLine.Text;
 
-namespace EventTestConsole
+namespace ShindyDataLoader
 {
-    class Options
+    public class Options
     {
         [Option("r", "ravenurl", Required = false, HelpText = "The URL for RavenDB.")]
         public string RavenURL { get; set; }
