@@ -45,11 +45,20 @@ namespace EventTestConsole
                 List<Group> HostedGroups = new List<Group>();
                 List<Person> Speakers = new List<Person>();
                 List<Sponsor> Sponsors = new List<Sponsor>();
+                List<Location> Locations = new List<Location>();
 
                 using (var session = documentStore.OpenSession(options.DBName))
                 {
                     foreach (Event e in events.Events)
                     {
+                        if (e.EventLocation != null)
+                        {
+                            if (Locations.Exists(i => i.Name == e.EventLocation.Name) == false)
+                            {
+                                Locations.Add(e.EventLocation);
+                                session.Store(e.EventLocation);
+                            }
+                        }
                         if (e.HostedGroups != null)
                         {
                             foreach (Group hg in e.HostedGroups)
@@ -67,7 +76,7 @@ namespace EventTestConsole
                             {
                                 foreach (Person sp in sess.Speakers)
                                 {
-                                    if (Speakers.Exists(i => i.FirstName  == sp.FirstName && i.LastName == sp.LastName) == false)
+                                    if (Speakers.Exists(i => i.FirstName == sp.FirstName && i.LastName == sp.LastName) == false)
                                     {
                                         Speakers.Add(sp);
                                         session.Store(sp);
