@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using EventLibrary.Entities;
@@ -20,17 +21,9 @@ namespace EventWebService.Modules
             /// </summary>
             Get["/upcomming"] = parameters =>
             {
-                IEnumerable<Event> results = eventBroker.GetUpcomingEvents();
-                return Response.AsJson(results);
-            };
-
-            /// <summary>
-            ///  /events/grou
-            ///  return events from group
-            /// </summary>
-            Get["/{groupName}"] = parameters =>
-            {
-                IEnumerable<Event> results = eventBroker.GetEventsForGroup(parameters.groupName);
+                int pageNumber = GetPageNumber();
+                int pageSize = GetPageSize();
+                IEnumerable<Event> results = eventBroker.GetUpcomingEvents(pageSize, pageNumber);
                 return Response.AsJson(results);
             };
 
@@ -40,9 +33,30 @@ namespace EventWebService.Modules
             /// </summary>
             Get["/{groupName}/upcomming"] = parameters =>
             {
-                IEnumerable<Event> results = eventBroker.GetUpcomingEvents(parameters.groupName);
+                int pageNumber = GetPageNumber();
+                int pageSize = GetPageSize();
+                IEnumerable<Event> results = eventBroker.GetUpcomingEvents(parameters.groupName, pageSize, pageNumber);
                 return Response.AsJson(results);
             };
+
+            /// <summary>
+            ///  /events/grou
+            ///  return events from group
+            /// </summary>
+            Get["/{groupName}"] = parameters =>
+            {
+                int pageNumber = GetPageNumber();
+                int pageSize = GetPageSize();
+                IEnumerable<Event> results = eventBroker.GetEventsForGroup(parameters.groupName, pageSize, pageNumber);
+                return Response.AsJson(results);
+            };         
+        }
+
+        private int GetPageSize()
+        {
+            int pageSize = 0;
+            int.TryParse(ConfigurationManager.AppSettings["default_page_size"], out pageSize);
+            return (pageSize == 0) ? 10 : pageSize;
         }
 
         private int GetPageNumber()
