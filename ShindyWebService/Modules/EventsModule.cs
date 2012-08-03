@@ -11,12 +11,23 @@ namespace EventWebService.Modules
 {
     public class EventsModule : NancyModule
     {
-
         public EventsModule(EventsSvcBroker eventBroker)
             : base("/events")
         {
-            /// <summary>
-            ///  /events/
+
+            Get[""] = parameters =>
+            {
+                int pageNumber = GetPageNumber();
+                int pageSize = GetPageSize();
+                IEnumerable<Event> results = eventBroker.GetEvents(pageSize, pageNumber);
+                if (results.Any())
+                {
+                    return Response.AsJson(results);
+                }
+                return new Response() { StatusCode = HttpStatusCode.NotFound };
+            };
+
+            /// <summary>            
             ///  return top x events
             /// </summary>
             Get["/upcomming"] = parameters =>
@@ -24,11 +35,14 @@ namespace EventWebService.Modules
                 int pageNumber = GetPageNumber();
                 int pageSize = GetPageSize();
                 IEnumerable<Event> results = eventBroker.GetUpcomingEvents(pageSize, pageNumber);
-                return Response.AsJson(results);
+                if (results.Any())
+                {
+                    return Response.AsJson(results);
+                }
+                return new Response() { StatusCode = HttpStatusCode.NotFound };
             };
 
-            /// <summary>
-            ///  /events/
+            /// <summary>            
             ///  return top x upcoming events by group
             /// </summary>
             Get["/{groupName}/upcomming"] = parameters =>
@@ -36,20 +50,58 @@ namespace EventWebService.Modules
                 int pageNumber = GetPageNumber();
                 int pageSize = GetPageSize();
                 IEnumerable<Event> results = eventBroker.GetUpcomingEvents(parameters.groupName, pageSize, pageNumber);
-                return Response.AsJson(results);
+                if (results.Any())
+                {
+                    return Response.AsJson(results);
+                }
+                return new Response() { StatusCode = HttpStatusCode.NotFound };
             };
 
-            /// <summary>
-            ///  /events/grou
+            /// <summary>            
             ///  return events from group
             /// </summary>
             Get["/{groupName}"] = parameters =>
             {
                 int pageNumber = GetPageNumber();
                 int pageSize = GetPageSize();
-                IEnumerable<Event> results = eventBroker.GetEventsForGroup(parameters.groupName, pageSize, pageNumber);
-                return Response.AsJson(results);
-            };         
+                IEnumerable<Event> results = eventBroker.GetEvents(parameters.groupName, pageSize, pageNumber);
+                if (results.Any())
+                {
+                    return Response.AsJson(results);
+                }
+                return new Response() { StatusCode = HttpStatusCode.NotFound };
+            };
+
+
+            /// <summary>            
+            ///  return events from group
+            /// </summary>
+            Get["/previous"] = parameters =>
+            {
+                int pageNumber = GetPageNumber();
+                int pageSize = GetPageSize();
+                IEnumerable<Event> results = eventBroker.GetPreviousEvents(pageSize, pageNumber);
+                if (results.Any())
+                {
+                    return Response.AsJson(results);
+                }
+                return new Response() { StatusCode = HttpStatusCode.NotFound };
+            };
+
+            /// <summary>            
+            ///  return previous events from group
+            /// </summary>
+            Get["/{groupName}/previous"] = parameters =>
+            {
+                int pageNumber = GetPageNumber();
+                int pageSize = GetPageSize();
+                IEnumerable<Event> results = eventBroker.GetPreviousEvents(parameters.groupName, pageSize, pageNumber);
+                if (results.Any())
+                {
+                    return Response.AsJson(results);
+                }
+                return new Response() { StatusCode = HttpStatusCode.NotFound };
+            };
         }
 
         private int GetPageSize()

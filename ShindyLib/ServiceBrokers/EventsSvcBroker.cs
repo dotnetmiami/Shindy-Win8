@@ -43,14 +43,53 @@ namespace EventLibrary.ServiceBrokers
             return results;
         }
 
-        public IEnumerable<Event> GetEventsForGroup(string groupName, int pageSize, int pageNumber)
+        public IEnumerable<Event> GetEvents(int pageSize, int pageNumber)
+        {
+            IEnumerable<Event> results = null;
+            using (var session = SessionProvider.OpenSession())
+            {
+                results = session.Query<Event>()                    
+                    .OrderBy(e => e.EventDateTime)
+                    .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            }
+            return results;
+        }
+
+        public IEnumerable<Event> GetEvents(string groupName, int pageSize, int pageNumber)
         {
             IEnumerable<Event> results = null;
             using (var session = SessionProvider.OpenSession())
             {
                 results = session.Query<Event>()
                     .Where(e => e.HostedGroups.Any(hg => hg.Name.Equals(groupName)))
-                    .OrderBy(e=> e.EventDateTime)
+                    .OrderBy(e => e.EventDateTime)
+                    .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            }
+            return results;
+        }
+
+        public IEnumerable<Event> GetPreviousEvents(int pageSize, int pageNumber)
+        {
+            IEnumerable<Event> results = null;
+            using (var session = SessionProvider.OpenSession())
+            {
+                results = session.Query<Event>()
+                    .Where(e => e.EventDateTime < DateTime.Now)
+                    .OrderByDescending(e => e.EventDateTime)
+                    .Skip((pageNumber - 1) * pageSize).Take(pageSize)
+                    .ToList();
+            }
+            return results;
+        }
+
+        public IEnumerable<Event> GetPreviousEvents(string groupName, int pageSize, int pageNumber)
+        {
+            IEnumerable<Event> results = null;
+            using (var session = SessionProvider.OpenSession())
+            {
+                results = session.Query<Event>()
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name.Equals(groupName)) && e.EventDateTime < DateTime.Now)                    
+                    .OrderByDescending(e => e.EventDateTime)                    
                     .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             }
             return results;
