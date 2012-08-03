@@ -30,7 +30,7 @@ namespace EventWebService.Modules
             /// <summary>            
             ///  return top x events
             /// </summary>
-            Get["/upcomming"] = parameters =>
+            Get["/upcoming"] = parameters =>
             {
                 int pageNumber = GetPageNumber();
                 int pageSize = GetPageSize();
@@ -45,7 +45,7 @@ namespace EventWebService.Modules
             /// <summary>            
             ///  return top x upcoming events by group
             /// </summary>
-            Get["/{groupName}/upcomming"] = parameters =>
+            Get["/{groupName}/upcoming"] = parameters =>
             {
                 int pageNumber = GetPageNumber();
                 int pageSize = GetPageSize();
