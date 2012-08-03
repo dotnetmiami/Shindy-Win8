@@ -13,7 +13,7 @@ namespace ShindyDataLoader
         public string RavenURL { get; set; }
 
         [Option("j", "jsonpath", Required = false, HelpText = "The URL or the path of the JSON file to be loaded.")]
-        public string JSONPath { get; set; }
+        public string JsonPath { get; set; }
 
         [Option("d", "dbname", Required = false, HelpText = "The name of the Raven database.")]
         public string DBName { get; set; }

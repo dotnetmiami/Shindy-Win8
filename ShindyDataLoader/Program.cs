@@ -26,7 +26,7 @@ namespace ShindyDataLoader
 
             if (options.DBName == null) { options.DBName = ConfigurationManager.AppSettings["DBName"]; }
             if (options.RavenURL == null) { options.RavenURL = ConfigurationManager.AppSettings["RavenURL"]; }
-            if (options.JSONPath == null) { options.JSONPath = ConfigurationManager.AppSettings["JSONPath"]; }
+            if (options.JsonPath == null) { options.JsonPath = ConfigurationManager.AppSettings["JSONPath"]; }
 
             LoadEvents(options);
 
@@ -35,7 +35,7 @@ namespace ShindyDataLoader
 
         public static void LoadEvents(Options options)
         {
-            var events = GetJSONData<dnm>(options.JSONPath);
+            var events = GetJsonData<dnm>(options.JsonPath);
             using (var documentStore = new DocumentStore { Url = options.RavenURL })
             {
                 documentStore.Initialize();
@@ -115,37 +115,68 @@ namespace ShindyDataLoader
             public List<Event> Events { get; set; }
         }
 
+        public enum TransportType { http, file }
 
-        // From: http://www.codeproject.com/Tips/397574/Use-Csharp-to-get-JSON-data-from-the-web-and-map-i
-        public static T GetJSONData<T>(string path) where T : new()
+        public static T GetJsonData<T>(string path) where T : new()
         {
-            var json_data = string.Empty;
+            var jsonData = string.Empty;
 
-            if (path.Substring(0, 4) == "http")
+            if (DetermineTransport(path) == TransportType.http)
             {
-                using (var w = new WebClient())
-                {
-                    // attempt to download JSON data as a string
-                    try
-                    {
-                        json_data = w.DownloadString(path);
-
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-                }
+                jsonData = GetURLJsonData(path);
             }
             else
             {
-                json_data = System.IO.File.ReadAllText(path);
+                jsonData = GetFileJsonData(path);
             }
-
-            // if string with JSON data is not empty, deserialize it to class and return its instance 
-            return !string.IsNullOrEmpty(json_data) ? JsonConvert.DeserializeObject<T>(json_data) : new T();
+            return LoadObjectFromJson<T>(jsonData);
         }
 
+        public static T LoadObjectFromJson<T>(string jsonData) where T : new()
+        {
+            // if string with JSON data is not empty, deserialize it to class and return its instance 
+            return !string.IsNullOrEmpty(jsonData) ? JsonConvert.DeserializeObject<T>(jsonData) : new T();    
+        }
+
+        public static TransportType DetermineTransport(string path)
+        {
+            TransportType transportType = TransportType.file;
+
+            if (path.Substring(0, 4) == "http")
+            {
+                transportType = TransportType.http;
+            }
+            return transportType;
+        }
+
+        public static string GetURLJsonData(string url)
+        {
+            string urlData = string.Empty;
+
+            using (var web = new WebClient())
+            {
+                // attempt to download JSON data as a string
+                try
+                {
+                    urlData = web.DownloadString(url);
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return urlData;
+        }
+
+        public static string GetFileJsonData(string path)
+        {
+            string pathData = string.Empty;
+
+            pathData = System.IO.File.ReadAllText(path);
+
+            return pathData;
+        }
     }
 
 
