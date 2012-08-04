@@ -17,6 +17,8 @@ namespace EventWebService.Modules
 
             Get[""] = parameters =>
             {
+                //return Response.AsJson(eventBroker.GetEventById());
+                
                 int pageNumber = GetPageNumber();
                 int pageSize = GetPageSize();
                 IEnumerable<Event> results = eventBroker.GetEvents(pageSize, pageNumber);

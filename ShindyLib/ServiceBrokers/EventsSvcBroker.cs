@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using EventLibrary.Entities;
 using EventLibrary.Interfaces;
+using Raven.Client;
+using Raven.Client.Document;
+using Raven.Abstractions.Data;
+
 
 namespace EventLibrary.ServiceBrokers
 {
@@ -13,7 +17,7 @@ namespace EventLibrary.ServiceBrokers
 
         public EventsSvcBroker(IRavenSessionProvider sessionProvider)
         {
-            SessionProvider = sessionProvider;
+            SessionProvider = new RavenSessionProvider();
         }
 
         public IEnumerable<Event> GetUpcomingEvents(int pageSize, int pageNumber)
@@ -43,12 +47,21 @@ namespace EventLibrary.ServiceBrokers
             return results;
         }
 
+        public Event GetEventById()
+        {
+
+            using (var session =  SessionProvider.OpenSession())
+            {
+                return session.Load<Event>(string.Format("events/{0}", 1));
+            }
+        }
+
         public IEnumerable<Event> GetEvents(int pageSize, int pageNumber)
         {
             IEnumerable<Event> results = null;
             using (var session = SessionProvider.OpenSession())
-            {
-                results = session.Query<Event>()                    
+            {  
+                 results = session.Query<Event>()                    
                     .OrderBy(e => e.EventDateTime)
                     .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             }
