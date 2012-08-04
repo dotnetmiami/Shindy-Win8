@@ -27,6 +27,7 @@ namespace ShindyDataLoader
             if (options.DBName == null) { options.DBName = ConfigurationManager.AppSettings["DBName"]; }
             if (options.RavenURL == null) { options.RavenURL = ConfigurationManager.AppSettings["RavenURL"]; }
             if (options.JsonPath == null) { options.JsonPath = ConfigurationManager.AppSettings["JSONPath"]; }
+            if (options.ApiKey == null) { options.ApiKey = ConfigurationManager.AppSettings["RavenApi"]; }
 
             LoadEvents(options);
 
@@ -38,15 +39,25 @@ namespace ShindyDataLoader
             var events = GetJsonData<dnm>(options.JsonPath);
             using (var documentStore = new DocumentStore { Url = options.RavenURL })
             {
+   
+                if (options.ApiKey != null && options.ApiKey != "")
+                {
+                    documentStore.ApiKey = options.ApiKey;
+                    options.DBName = null;
+                }
+
                 documentStore.Initialize();
 
-                documentStore.DatabaseCommands.EnsureDatabaseExists(options.DBName);
+                if (options.ApiKey == null || options.ApiKey == "")
+                {
+                    documentStore.DatabaseCommands.EnsureDatabaseExists(options.DBName);
+                }
 
                 List<Group> HostedGroups = new List<Group>();
                 List<Person> Speakers = new List<Person>();
                 List<Sponsor> Sponsors = new List<Sponsor>();
                 List<Location> Locations = new List<Location>();
-
+                
                 using (var session = documentStore.OpenSession(options.DBName))
                 {
                     foreach (Event e in events.Events)
@@ -165,6 +176,7 @@ namespace ShindyDataLoader
                 {
                     throw;
                 }
+                  
             }
             return urlData;
         }
