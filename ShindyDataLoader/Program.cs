@@ -39,7 +39,7 @@ namespace ShindyDataLoader
             var events = GetJsonData<dnm>(options.JsonPath);
             using (var documentStore = new DocumentStore { Url = options.RavenURL })
             {
-   
+
                 if (options.ApiKey != null && options.ApiKey != "")
                 {
                     documentStore.ApiKey = options.ApiKey;
@@ -57,27 +57,39 @@ namespace ShindyDataLoader
                 List<Person> Speakers = new List<Person>();
                 List<Sponsor> Sponsors = new List<Sponsor>();
                 List<Location> Locations = new List<Location>();
-                
-                using (var session = documentStore.OpenSession(options.DBName))
+
+                foreach (Event e in events.Events)
                 {
-                    foreach (Event e in events.Events)
+                    using (var session = documentStore.OpenSession(options.DBName))
                     {
                         if (e.EventLocation != null)
                         {
-                            if (Locations.Exists(i => i.Name == e.EventLocation.Name) == false)
+                            Location loc = session.Query<Location>()
+                                                .Where(x => x.Name == e.EventLocation.Name)
+                                                .FirstOrDefault();
+                            if (loc == null)
                             {
-                                Locations.Add(e.EventLocation);
                                 session.Store(e.EventLocation);
+                            }
+                            else
+                            {
+                                e.EventLocation.Id = loc.Id;
                             }
                         }
                         if (e.HostedGroups != null)
                         {
                             foreach (Group hg in e.HostedGroups)
                             {
-                                if (HostedGroups.Exists(i => i.Name == hg.Name) == false)
+                                Group dbGroup = session.Query<Group>()
+                                                    .Where(x => x.Name == hg.Name)
+                                                    .FirstOrDefault();
+                                if (dbGroup == null)
                                 {
-                                    HostedGroups.Add(hg);
                                     session.Store(hg);
+                                }
+                                else
+                                {
+                                    hg.Id = dbGroup.Id;
                                 }
                             }
                         }
@@ -87,10 +99,17 @@ namespace ShindyDataLoader
                             {
                                 foreach (Person sp in sess.Speakers)
                                 {
-                                    if (Speakers.Exists(i => i.FirstName == sp.FirstName && i.LastName == sp.LastName) == false)
+                                    Person dbPerson = session.Query<Person>()
+                                                        .Where(i => i.FirstName == sp.FirstName && i.LastName == sp.LastName)
+                                                        .FirstOrDefault();
+                                    if (dbPerson == null)
                                     {
                                         Speakers.Add(sp);
                                         session.Store(sp);
+                                    }
+                                    else
+                                    {
+                                        sp.Id = dbPerson.Id;
                                     }
                                 }
                             }
@@ -101,17 +120,24 @@ namespace ShindyDataLoader
                             {
                                 foreach (Sponsor spon in e.Sponsors)
                                 {
-                                    if (Sponsors.Exists(i => i.Name == spon.Name) == false)
+                                    Sponsor dbSponsor = session.Query<Sponsor>()
+                                                        .Where(i => i.Name == spon.Name)
+                                                        .FirstOrDefault();
+                                    if (dbSponsor == null)
                                     {
                                         Sponsors.Add(spon);
                                         session.Store(spon);
+                                    }
+                                    else
+                                    {
+                                        spon.Id = dbSponsor.Id;
                                     }
                                 }
                             }
                         }
                         session.Store(e);
+                        session.SaveChanges(); // will send the change to the database
                     }
-                    session.SaveChanges(); // will send the change to the database
                 }
             }
         }
@@ -146,7 +172,7 @@ namespace ShindyDataLoader
         public static T LoadObjectFromJson<T>(string jsonData) where T : new()
         {
             // if string with JSON data is not empty, deserialize it to class and return its instance 
-            return !string.IsNullOrEmpty(jsonData) ? JsonConvert.DeserializeObject<T>(jsonData) : new T();    
+            return !string.IsNullOrEmpty(jsonData) ? JsonConvert.DeserializeObject<T>(jsonData) : new T();
         }
 
         public static TransportType DetermineTransport(string path)
@@ -176,7 +202,7 @@ namespace ShindyDataLoader
                 {
                     throw;
                 }
-                  
+
             }
             return urlData;
         }
