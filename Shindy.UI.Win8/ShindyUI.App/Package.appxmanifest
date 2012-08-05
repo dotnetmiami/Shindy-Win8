@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="16e7c521-49e1-4f23-b34e-b04b9ef068c9" Publisher="CN=Horacio" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>ShindyUI.App</DisplayName>
+    <PublisherDisplayName>Horacio</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.0</OSMinVersion>
+    <OSMaxVersionTested>6.2.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="ShindyUI.App.App">
+      <VisualElements DisplayName="ShindyUI.App" Logo="Assets\ShindyLogo.png" SmallLogo="Assets\ShindyLogo_Small.png" Description="An application that will help you keep in touch with technical events in your area like never before." ForegroundText="light" BackgroundColor="#5F2C8B">
+        <DefaultTile ShowName="allLogos" WideLogo="Assets\ShindyLogo_Wide.png" ShortName="Shindy" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#5F2C8B" />
+        <InitialRotationPreference>
+          <Rotation Preference="portrait" />
+          <Rotation Preference="landscape" />
+          <Rotation Preference="portraitFlipped" />
+          <Rotation Preference="landscapeFlipped" />
+        </InitialRotationPreference>
+      </VisualElements>
+      <Extensions>
+        <Extension Category="windows.search" />
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
