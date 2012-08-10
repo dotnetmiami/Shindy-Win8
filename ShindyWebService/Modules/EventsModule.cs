@@ -109,16 +109,23 @@ namespace EventWebService.Modules
         private int GetPageSize()
         {
             int pageSize = 0;
-            int.TryParse(ConfigurationManager.AppSettings["default_page_size"], out pageSize);
+            if (this.Request.Query["pagesize"] != null)
+            {
+                int.TryParse(this.Request.Query["pagesize"], out pageSize);
+            }
+            else
+            {
+                int.TryParse(ConfigurationManager.AppSettings["default_page_size"], out pageSize);
+            }
             return (pageSize == 0) ? 10 : pageSize;
         }
 
         private int GetPageNumber()
         {
             int pageNumber = 0;
-            if (this.Request.Query["PageNumber"] != null)
+            if (this.Request.Query["pagenumber"] != null)
             {
-                int.TryParse(this.Request.Query["PageNumber"], out pageNumber);
+                int.TryParse(this.Request.Query["pagenumber"], out pageNumber);
             }
             return (pageNumber == 0) ? 1 : pageNumber;
         }
