@@ -36,6 +36,7 @@ namespace ShindyDataLoader
 
         public static void LoadEvents(Options options)
         {
+            
             var events = GetJsonData<dnm>(options.JsonPath);
             using (var documentStore = new DocumentStore { Url = options.RavenURL })
             {
@@ -60,6 +61,7 @@ namespace ShindyDataLoader
 
                 foreach (Event e in events.Events)
                 {
+                    e.EventDateTime = e.EventDateTime.ToUniversalTime();
                     using (var session = documentStore.OpenSession(options.DBName))
                     {
                         if (e.EventLocation != null)

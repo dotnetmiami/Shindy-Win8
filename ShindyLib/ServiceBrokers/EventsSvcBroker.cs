@@ -27,6 +27,7 @@ namespace EventLibrary.ServiceBrokers
             {
                 results = session.Query<Event>()
                     .Where(e => e.EventDateTime > DateTime.Now)
+                    .OrderBy(e => e.EventDateTime)
                     .Skip((pageNumber - 1) * pageSize).Take(pageSize)
                     .ToList();
             }
