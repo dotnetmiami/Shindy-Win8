@@ -14,6 +14,10 @@ namespace EventLibrary.Entities
 
         public string Description { get; set; }
 
+        public string GroupURI { get; set; }
+
+        public bool IsExternalGroup { get; set; }
+
         public virtual List<Event> Events { get; set; }
 
     }
