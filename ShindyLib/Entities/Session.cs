@@ -7,6 +7,12 @@ namespace EventLibrary.Entities
 {
     public class Session
     {
+
+        public Session()
+        {
+            Speakers = new List<Person>();
+        }
+
         public string Id { get; set; }
 
         public string Title { get; set; }

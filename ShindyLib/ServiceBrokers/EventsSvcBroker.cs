@@ -15,9 +15,14 @@ namespace EventLibrary.ServiceBrokers
     {
         private IRavenSessionProvider SessionProvider;
 
-        public EventsSvcBroker(IRavenSessionProvider sessionProvider)
+        public EventsSvcBroker()
         {
             SessionProvider = new RavenSessionProvider();
+        }
+
+        public EventsSvcBroker(IRavenSessionProvider sessionProvider)
+        {
+            SessionProvider = sessionProvider;
         }
 
         public IEnumerable<Event> GetUpcomingEvents(int pageSize, int pageNumber)
@@ -40,7 +45,7 @@ namespace EventLibrary.ServiceBrokers
             using (var session = SessionProvider.OpenSession())
             {
                 results = session.Query<Event>()
-                    .Where(e => e.HostedGroups.Any(hg =>hg.Name.Equals(groupName)) && e.EventDateTime > DateTime.Now)
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name.Equals(groupName)) && e.EventDateTime > DateTime.Now)
                     .OrderBy(e => e.EventDateTime)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
@@ -51,7 +56,7 @@ namespace EventLibrary.ServiceBrokers
         public Event GetEventById()
         {
 
-            using (var session =  SessionProvider.OpenSession())
+            using (var session = SessionProvider.OpenSession())
             {
                 return session.Load<Event>(string.Format("events/{0}", 1));
             }
@@ -61,10 +66,10 @@ namespace EventLibrary.ServiceBrokers
         {
             IEnumerable<Event> results = null;
             using (var session = SessionProvider.OpenSession())
-            {  
-                 results = session.Query<Event>()                    
-                    .OrderBy(e => e.EventDateTime)
-                    .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            {
+                results = session.Query<Event>()
+                   .OrderBy(e => e.EventDateTime)
+                   .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             }
             return results;
         }
@@ -102,8 +107,8 @@ namespace EventLibrary.ServiceBrokers
             using (var session = SessionProvider.OpenSession())
             {
                 results = session.Query<Event>()
-                    .Where(e => e.HostedGroups.Any(hg => hg.Name.Equals(groupName)) && e.EventDateTime < DateTime.Now)                    
-                    .OrderByDescending(e => e.EventDateTime)                    
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name.Equals(groupName)) && e.EventDateTime < DateTime.Now)
+                    .OrderByDescending(e => e.EventDateTime)
                     .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             }
             return results;

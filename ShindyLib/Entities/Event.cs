@@ -7,6 +7,14 @@ namespace EventLibrary.Entities
 
     public class Event
     {
+        public Event()
+        {
+            Giveaways = new List<Giveaway>();
+            HostedGroups = new List<Group>();
+            Sponsors = new List<Sponsor>();
+            Sessions = new List<Session>();
+        }
+
         public string Id { get; set; }
 
         public string Title { get; set; }
