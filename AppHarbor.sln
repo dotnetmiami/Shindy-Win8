@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShindyWebService", "ShindyW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShindyLib", "ShindyLib\ShindyLib.csproj", "{E984AD31-8077-45BE-A3F5-5BD237077B57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShindyTest", "ShindyTest\ShindyTest.csproj", "{079E2B22-82C1-4CC6-8ACA-A8960D339E04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{E984AD31-8077-45BE-A3F5-5BD237077B57}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E984AD31-8077-45BE-A3F5-5BD237077B57}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E984AD31-8077-45BE-A3F5-5BD237077B57}.Release|x86.ActiveCfg = Release|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{079E2B22-82C1-4CC6-8ACA-A8960D339E04}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
