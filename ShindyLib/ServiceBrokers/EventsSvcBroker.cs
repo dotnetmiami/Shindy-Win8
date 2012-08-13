@@ -25,8 +25,17 @@ namespace EventLibrary.ServiceBrokers
             SessionProvider = sessionProvider;
         }
 
+        public int VerifyPositiveInt(int value)
+        {
+            if (value <= 0) { value = 1; }
+            return value;
+        }
+
         public IEnumerable<Event> GetUpcomingEvents(int pageSize, int pageNumber)
         {
+            pageSize = VerifyPositiveInt(pageSize);
+            pageNumber = VerifyPositiveInt(pageNumber);
+
             IEnumerable<Event> results = null;
             using (var session = SessionProvider.OpenSession())
             {
@@ -41,6 +50,9 @@ namespace EventLibrary.ServiceBrokers
 
         public IEnumerable<Event> GetUpcomingEvents(string groupName, int pageSize, int pageNumber)
         {
+            pageSize = VerifyPositiveInt(pageSize);
+            pageNumber = VerifyPositiveInt(pageNumber);
+
             IEnumerable<Event> results = null;
             using (var session = SessionProvider.OpenSession())
             {
@@ -64,6 +76,9 @@ namespace EventLibrary.ServiceBrokers
 
         public IEnumerable<Event> GetEvents(int pageSize, int pageNumber)
         {
+            pageSize = VerifyPositiveInt(pageSize);
+            pageNumber = VerifyPositiveInt(pageNumber);
+
             IEnumerable<Event> results = null;
             using (var session = SessionProvider.OpenSession())
             {
@@ -76,6 +91,9 @@ namespace EventLibrary.ServiceBrokers
 
         public IEnumerable<Event> GetEvents(string groupName, int pageSize, int pageNumber)
         {
+            pageSize = VerifyPositiveInt(pageSize);
+            pageNumber = VerifyPositiveInt(pageNumber);
+
             IEnumerable<Event> results = null;
             using (var session = SessionProvider.OpenSession())
             {
@@ -89,6 +107,9 @@ namespace EventLibrary.ServiceBrokers
 
         public IEnumerable<Event> GetPreviousEvents(int pageSize, int pageNumber)
         {
+            pageSize = VerifyPositiveInt(pageSize);
+            pageNumber = VerifyPositiveInt(pageNumber);
+
             IEnumerable<Event> results = null;
             using (var session = SessionProvider.OpenSession())
             {
@@ -103,6 +124,9 @@ namespace EventLibrary.ServiceBrokers
 
         public IEnumerable<Event> GetPreviousEvents(string groupName, int pageSize, int pageNumber)
         {
+            pageSize = VerifyPositiveInt(pageSize);
+            pageNumber = VerifyPositiveInt(pageNumber);
+
             IEnumerable<Event> results = null;
             using (var session = SessionProvider.OpenSession())
             {

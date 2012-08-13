@@ -13,18 +13,6 @@ namespace EventTest
     {
         public EmbeddableDocumentStore Store { get; set; }
 
-        public int NumEvents
-        {
-            get
-            {
-                using (var session = OpenSession())
-                {
-                    var events = session.Load<Event>();
-                    return events.Count();
-                }
-            }
-        }
-
         public StubRavenSessionProvider()
         {
             Store = new EmbeddableDocumentStore { RunInMemory = true };
@@ -53,6 +41,7 @@ namespace EventTest
 
             var speaker1 = new Person() { FirstName = "Testy", LastName = "Speaker", Bio = "Testy Speaker's Bio" };
 
+            // Event Two
             var session1 = new Session()
             {
                 SessionType = "main",
@@ -83,9 +72,95 @@ namespace EventTest
                 session.Store(sponsor1);
                 session.Store(event1);
                 session.SaveChanges();
-
             }
 
+            // Event Two
+            var speaker2 = new Person() { FirstName = "Testy", LastName = "SpeakerTwo", Bio = "Testy SpeakerTwo's Bio" };
+
+            var session2 = new Session()
+            {
+                SessionType = "main",
+                Title = "Test Session Two",
+                Abstract = "Test Session Two Abstract",
+            };
+            session2.Speakers.Add(speaker2);
+
+            var event2 = new Event()
+            {
+                Title = "Test Event Two",
+                Description = "Test Event Two Description",
+                EventDateTime = DateTime.Today.AddDays(-15),
+                IsActive = true,
+                EventLocation = location,
+            };
+            event2.HostedGroups.Add(group);
+            event2.Sessions.Add(session2);
+            event2.Sponsors.Add(sponsor1);
+
+            using (var session = OpenSession())
+            {
+                session.Store(speaker2);
+                session.Store(event2);
+                session.SaveChanges();
+            }
+
+            // Event Three
+            var speaker3 = new Person() { FirstName = "Testy", LastName = "SpeakerThree", Bio = "Testy SpeakerThree's Bio" };
+
+            var session3 = new Session()
+            {
+                SessionType = "main",
+                Title = "Test Session Three",
+                Abstract = "Test Session Three Abstract",
+            };
+            session3.Speakers.Add(speaker3);
+
+            var event3 = new Event()
+            {
+                Title = "Test Event Three",
+                Description = "Test Event Three Description",
+                EventDateTime = DateTime.Today.AddDays(-45),
+                IsActive = true,
+                EventLocation = location,
+            };
+            event3.HostedGroups.Add(group);
+            event3.Sessions.Add(session3);
+            event3.Sponsors.Add(sponsor1);
+
+            using (var session = OpenSession())
+            {
+                session.Store(speaker3);
+                session.Store(event3);
+                session.SaveChanges();
+            }
+
+            // Event Four
+            var session4 = new Session()
+            {
+                SessionType = "main",
+                Title = "Test Session Three",
+                Abstract = "Test Session Three Abstract",
+            };
+            session4.Speakers.Add(speaker1);
+
+            var event4 = new Event()
+            {
+                Title = "Test Event Three",
+                Description = "Test Event Three Description",
+                EventDateTime = DateTime.Today.AddDays(45),
+                IsActive = true,
+                EventLocation = location,
+            };
+            event4.HostedGroups.Add(group);
+            event4.Sessions.Add(session3);
+            event4.Sponsors.Add(sponsor1);
+
+            using (var session = OpenSession())
+            {
+                session.Store(speaker1);
+                session.Store(event4);
+                session.SaveChanges();
+            }
 
         }
 
