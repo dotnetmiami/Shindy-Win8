@@ -108,12 +108,10 @@
     <Compile Include="DataModel\EventDataModel.cs" />
     <Compile Include="DataModel\EventGroup.cs" />
     <Compile Include="DataModel\Giveaway.cs" />
-    <Compile Include="DataModel\Globals.cs" />
     <Compile Include="DataModel\Group.cs" />
     <Compile Include="DataModel\Location.cs" />
     <Compile Include="DataModel\Person.cs" />
     <Compile Include="DataModel\Role.cs" />
-    <Compile Include="DataModel\SearchResultModel.cs" />
     <Compile Include="DataModel\Session.cs" />
     <Compile Include="DataModel\ShindyDataSource.cs" />
     <Compile Include="DataModel\Sponsor.cs" />
@@ -131,7 +129,6 @@
     <Compile Include="DataModel\ShindyD3ataSource.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
@@ -154,12 +151,11 @@
     <Content Include="Assets\ShindyLogo.png" />
     <Content Include="Assets\ShindyLogo_Small.png" />
     <Content Include="Assets\ShindyLogo_Wide.png" />
-    <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\LightGray.png" />
-    <Content Include="Assets\MediumGray.png" />
-    <Content Include="Assets\DarkGray.png" />
+    <Content Include="Scripts\jquery-1.8.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -189,7 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.8\lib\winrt45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>C:\Users\Richie\Desktop\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
