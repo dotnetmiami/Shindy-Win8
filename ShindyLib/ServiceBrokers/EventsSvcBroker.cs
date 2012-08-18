@@ -57,7 +57,7 @@ namespace EventLibrary.ServiceBrokers
             using (var session = SessionProvider.OpenSession())
             {
                 results = session.Query<Event>()
-                    .Where(e => e.HostedGroups.Any(hg => hg.Name.Equals(groupName)) && e.EventDateTime > DateTime.Now)
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name == groupName) && e.EventDateTime > DateTime.Now)
                     .OrderBy(e => e.EventDateTime)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
@@ -65,12 +65,11 @@ namespace EventLibrary.ServiceBrokers
             return results;
         }
 
-        public Event GetEventById()
+        public Event GetEventById(int eventId)
         {
-
             using (var session = SessionProvider.OpenSession())
             {
-                return session.Load<Event>(string.Format("events/{0}", 1));
+                return session.Load<Event>(string.Format("events/{0}", eventId));
             }
         }
 

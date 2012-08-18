@@ -28,9 +28,16 @@ namespace EventTest
         {
             var group = new Group()
             {
-                Name = "Test Group",
-                Description = "Test Group Description",
+                Name = "TestGroup1",
+                Description = "Test Group One Description",
                 IsExternalGroup = false
+            };
+
+            var group2 = new Group()
+            {
+                Name = "TestGroup2",
+                Description = "Test Group Two Description",
+                IsExternalGroup = true
             };
 
             var location = new Location()
@@ -41,7 +48,7 @@ namespace EventTest
 
             var speaker1 = new Person() { FirstName = "Testy", LastName = "Speaker", Bio = "Testy Speaker's Bio" };
 
-            // Event Two
+            // Event One
             var session1 = new Session()
             {
                 SessionType = "main",
@@ -138,21 +145,21 @@ namespace EventTest
             var session4 = new Session()
             {
                 SessionType = "main",
-                Title = "Test Session Three",
-                Abstract = "Test Session Three Abstract",
+                Title = "Test Session Four",
+                Abstract = "Test Session Four Abstract",
             };
             session4.Speakers.Add(speaker1);
 
             var event4 = new Event()
             {
-                Title = "Test Event Three",
-                Description = "Test Event Three Description",
+                Title = "Test Event Four",
+                Description = "Test Event Four Description",
                 EventDateTime = DateTime.Today.AddDays(45),
                 IsActive = true,
                 EventLocation = location,
             };
-            event4.HostedGroups.Add(group);
-            event4.Sessions.Add(session3);
+            event4.HostedGroups.Add(group2);
+            event4.Sessions.Add(session4);
             event4.Sponsors.Add(sponsor1);
 
             using (var session = OpenSession())
@@ -162,6 +169,33 @@ namespace EventTest
                 session.SaveChanges();
             }
 
+            // Event Five
+            var session5 = new Session()
+            {
+                SessionType = "main",
+                Title = "Test Session Five",
+                Abstract = "Test Session Five Abstract",
+            };
+            session5.Speakers.Add(speaker1);
+
+            var event5 = new Event()
+            {
+                Title = "Test Event Five",
+                Description = "Test Event Five Description",
+                EventDateTime = DateTime.Today.AddDays(60),
+                IsActive = true,
+                EventLocation = location,
+            };
+            event5.HostedGroups.Add(group);
+            event5.Sessions.Add(session5);
+            event5.Sponsors.Add(sponsor1);
+
+            using (var session = OpenSession())
+            {
+                session.Store(speaker1);
+                session.Store(event5);
+                session.SaveChanges();
+            }
         }
 
     }

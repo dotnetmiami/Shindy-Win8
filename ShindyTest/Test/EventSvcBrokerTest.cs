@@ -84,5 +84,61 @@ namespace EventTest
             var events = eventBroker.GetUpcomingEvents(-1, 1);
             Assert.Equal(1, events.Count());
         }
+
+        [Fact]
+        public void GetUpcomingEvents_ValidGroupName_OneEvent()
+        {
+            var events = eventBroker.GetUpcomingEvents("TestGroup1", 1, 1);
+            Assert.Equal(1, events.Count());
+        }
+
+        [Fact]
+        public void GetUpcomingEvents_InvalidGroupName_OneEvent()
+        {
+            var events = eventBroker.GetUpcomingEvents("", 1, 1);
+            Assert.Equal(0, events.Count());
+        }
+
+        [Fact]
+        public void GetUpcomingEvents_GroupNamePostitivePageNumber_OneEvent()
+        {
+            var events = eventBroker.GetUpcomingEvents("TestGroup1", 1, 2);
+            Assert.Equal(1, events.Count());
+        }
+
+        [Fact]
+        public void GetUpcomingEvents_GroupNameNegativePageNumber_OneEvent()
+        {
+            var events = eventBroker.GetUpcomingEvents("TestGroup1", 1, -1);
+            Assert.Equal(1, events.Count());
+        }
+
+        [Fact]
+        public void GetUpcomingEvents_GroupNameNegativePageSize_OneEvent()
+        {
+            var events = eventBroker.GetUpcomingEvents("TestGroup1", - 1, 1);
+            Assert.Equal(1, events.Count());
+        }
+
+        [Fact]
+        public void GetEventById_ValidEventId_OneEvent()
+        {
+            var events = eventBroker.GetEventById(1);
+            Assert.NotNull(events);
+        }
+
+        [Fact]
+        public void GetEventById_NegativeEventId_OneEvent()
+        {
+            var events = eventBroker.GetEventById(-1);
+            Assert.Null(events);
+        }
+
+        [Fact]
+        public void GetEventById_InvalidEventId_OneEvent()
+        {
+            var events = eventBroker.GetEventById(1000);
+            Assert.Null(events);
+        }
     }
 }
