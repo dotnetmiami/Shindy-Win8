@@ -40,7 +40,7 @@ namespace EventLibrary.ServiceBrokers
             using (var session = SessionProvider.OpenSession())
             {
                 results = session.Query<Event>()
-                    .Where(e => e.EventDateTime > DateTime.Now)
+                    .Where(e => e.EventDateTime >= DateTime.Now)
                     .OrderBy(e => e.EventDateTime)
                     .Skip((pageNumber - 1) * pageSize).Take(pageSize)
                     .ToList();
@@ -57,7 +57,7 @@ namespace EventLibrary.ServiceBrokers
             using (var session = SessionProvider.OpenSession())
             {
                 results = session.Query<Event>()
-                    .Where(e => e.HostedGroups.Any(hg => hg.Name == groupName) && e.EventDateTime > DateTime.Now)
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name == groupName) && e.EventDateTime >= DateTime.Now)
                     .OrderBy(e => e.EventDateTime)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
@@ -83,7 +83,8 @@ namespace EventLibrary.ServiceBrokers
             {
                 results = session.Query<Event>()
                    .OrderBy(e => e.EventDateTime)
-                   .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                   .Skip((pageNumber - 1) * pageSize)
+                   .Take(pageSize).ToList();
             }
             return results;
         }
@@ -97,9 +98,10 @@ namespace EventLibrary.ServiceBrokers
             using (var session = SessionProvider.OpenSession())
             {
                 results = session.Query<Event>()
-                    .Where(e => e.HostedGroups.Any(hg => hg.Name.Equals(groupName)))
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name == groupName))
                     .OrderBy(e => e.EventDateTime)
-                    .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize).ToList();
             }
             return results;
         }
@@ -115,7 +117,8 @@ namespace EventLibrary.ServiceBrokers
                 results = session.Query<Event>()
                     .Where(e => e.EventDateTime < DateTime.Now)
                     .OrderByDescending(e => e.EventDateTime)
-                    .Skip((pageNumber - 1) * pageSize).Take(pageSize)
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
                     .ToList();
             }
             return results;
@@ -130,9 +133,10 @@ namespace EventLibrary.ServiceBrokers
             using (var session = SessionProvider.OpenSession())
             {
                 results = session.Query<Event>()
-                    .Where(e => e.HostedGroups.Any(hg => hg.Name.Equals(groupName)) && e.EventDateTime < DateTime.Now)
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name == groupName) && e.EventDateTime < DateTime.Now)
                     .OrderByDescending(e => e.EventDateTime)
-                    .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize).ToList();
             }
             return results;
         }
