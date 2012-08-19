@@ -19,6 +19,7 @@ namespace EventTest
         {
             ravenSession = new StubRavenSessionProvider();
             eventBroker = new EventsSvcBroker(ravenSession);
+            eventBroker.defaultPageSize = 1;
             ravenSession.LoadRavenSeedData();
         }
 
@@ -106,7 +107,23 @@ namespace EventTest
                     .ToList();
                 eventCount = ev.Count();
             }
-            var events = eventBroker.GetUpcomingEvents(groupName, eventCount + 1, 1);
+            var events = eventBroker.GetUpcomingEvents(groupName, eventCount + 1, 1, false);
+            Assert.Equal(eventCount, events.Count());
+        }
+
+        [Fact]
+        public void GetUpcomingEvents_GroupNameAllExternalEvents_ReturnAllEvents()
+        {
+            string groupName = "TestGroup1";
+            int eventCount = 0;
+            using (var session = ravenSession.OpenSession())
+            {
+                var ev = session.Query<Event>()
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name != groupName) && e.EventDateTime >= DateTime.Now)
+                    .ToList();
+                eventCount = ev.Count();
+            }
+            var events = eventBroker.GetUpcomingEvents(groupName, eventCount + 1, 1, true);
             Assert.Equal(eventCount, events.Count());
         }
 
@@ -232,7 +249,23 @@ namespace EventTest
                     .ToList();
                 eventCount = ev.Count();
             }
-            var events = eventBroker.GetEvents(groupName, eventCount + 1, 1);
+            var events = eventBroker.GetEvents(groupName, eventCount + 1, 1, false);
+            Assert.Equal(eventCount, events.Count());
+        }
+
+        [Fact]
+        public void GetEvents_GroupNameAllExternalEvents_ReturnAllEvents()
+        {
+            string groupName = "TestGroup1";
+            int eventCount = 0;
+            using (var session = ravenSession.OpenSession())
+            {
+                var ev = session.Query<Event>()
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name != groupName))
+                    .ToList();
+                eventCount = ev.Count();
+            }
+            var events = eventBroker.GetEvents(groupName, eventCount + 1, 1, true);
             Assert.Equal(eventCount, events.Count());
         }
 
@@ -334,7 +367,23 @@ namespace EventTest
                     .ToList();
                 eventCount = ev.Count();
             }
-            var events = eventBroker.GetPreviousEvents(groupName, eventCount + 1, 1);
+            var events = eventBroker.GetPreviousEvents(groupName, eventCount + 1, 1, false);
+            Assert.Equal(eventCount, events.Count());
+        }
+
+        [Fact]
+        public void GetPreviousEvents_GroupNameAllExternalEvents_ReturnAllEvents()
+        {
+            string groupName = "TestGroup1";
+            int eventCount = 0;
+            using (var session = ravenSession.OpenSession())
+            {
+                var ev = session.Query<Event>()
+                    .Where(e => e.HostedGroups.Any(hg => hg.Name != groupName) && e.EventDateTime < DateTime.Now)
+                    .ToList();
+                eventCount = ev.Count();
+            }
+            var events = eventBroker.GetPreviousEvents(groupName, eventCount + 1, 1, true);
             Assert.Equal(eventCount, events.Count());
         }
 
