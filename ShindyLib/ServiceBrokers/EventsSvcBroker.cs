@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 
 namespace EventLibrary.ServiceBrokers
 {
-    public class EventsSvcBroker
+    public class EventsSvcBroker : EventLibrary.IEventsSvcBroker
     {
         private IRavenSessionProvider SessionProvider;
         internal int defaultPageSize = 10;
@@ -34,7 +34,7 @@ namespace EventLibrary.ServiceBrokers
             return value;
         }
 
-        public IEnumerable<Event> GetUpcomingEvents(int pageSize, int pageNumber)
+        public IEnumerable<Event> GetUpcomingEvents(int pageSize, int pageNumber) 
         {
             pageSize = VerifyPositiveInt(pageSize, defaultPageSize);
             pageNumber = VerifyPositiveInt(pageNumber);

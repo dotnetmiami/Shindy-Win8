@@ -76,6 +76,7 @@
     <Compile Include="Entities\Sponsor.cs" />
     <Compile Include="RavenSessionProvider.cs" />
     <Compile Include="ServiceBrokers\EventsSvcBroker.cs" />
+    <Compile Include="Interfaces\IEventsSvcBroker.cs" />
     <Compile Include="ServiceBrokers\JanrainBroker.cs" />
     <Compile Include="ServiceBrokers\PersonSvcBroker.cs" />
   </ItemGroup>

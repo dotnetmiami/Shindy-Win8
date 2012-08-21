@@ -14,7 +14,7 @@ namespace EventWebService.Modules
         internal int defaultPageSize = 10;
         internal int defaultPageNumber = 1;
 
-        public EventsModule(EventsSvcBroker eventBroker)
+        public EventsModule(EventLibrary.IEventsSvcBroker eventBroker)
             : base("/events")
         {
 
