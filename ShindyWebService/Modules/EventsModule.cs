@@ -151,7 +151,7 @@ namespace EventWebService.Modules
             };
         }
 
-        private int GetPageSize()
+        internal int GetPageSize()
         {
             int pageSize = 0;
             if (this.Request.Query["pagesize"] != null)
@@ -165,7 +165,7 @@ namespace EventWebService.Modules
             return (pageSize == 0) ? defaultPageSize : pageSize;
         }
 
-        private int GetPageNumber()
+        internal int GetPageNumber()
         {
             int pageNumber = 0;
             if (this.Request.Query["pagenumber"] != null)

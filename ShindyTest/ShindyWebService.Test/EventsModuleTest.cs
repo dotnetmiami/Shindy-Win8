@@ -26,6 +26,8 @@ namespace EventTest.ShindyWebService
 
             eventBroker = new Mock<EventLibrary.IEventsSvcBroker>();
             eventBroker.Setup(foo => foo.GetEvents(It.IsAny<int>(), It.IsAny<int>())).Returns(eventData);
+            eventBroker.Setup(foo => foo.GetUpcomingEvents(It.IsAny<int>(), It.IsAny<int>())).Returns(eventData);
+            eventBroker.Setup(foo => foo.GetUpcomingEvents(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>())).Returns(eventData);
             var bootstrapper = new ConfigurableBootstrapper(with =>
             {
                 with.Module<EventsModule>().Dependency(eventBroker.Object);
@@ -50,18 +52,39 @@ namespace EventTest.ShindyWebService
             return returnEvent.AsEnumerable<Event>();
         }
 
+        private BrowserResponse CallWebService(string path)
+        {
+            var response = app.Get(path,
+                 with =>
+                 {
+                     with.HttpRequest();
+                 });
+            return response;
+        }
+
+        private BrowserResponse CallWebService(string path, string PageSize, string PageNumber)
+        {
+            var response = app.Get(path,
+                 with =>
+                 {
+                     with.HttpRequest();
+                     with.Query("pagenumber", PageNumber);
+                     with.Query("pagesize", PageSize);
+                 });
+            return response;
+        }
+
         // Test naming pattern: [MethodName]_[StateUnderTest]_[ExpectedBehavior].
 
         [Fact]
         public void EventModule_DefaultParams_GetEventCalled()
         {
-            var response = app.Get("/events/",
-                 with =>
-                 {
-                     with.HttpRequest();
-                 });
+            var response = CallWebService("/events/");
+
+            var events = response.Body.DeserializeJson<IEnumerable<Event>>();
 
             Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(events.Count(), eventData.Count());
             Assert.Contains("events/1", response.Body.AsString());
             eventBroker.Verify(m => m.GetEvents(10, 1));
         }
@@ -69,21 +92,77 @@ namespace EventTest.ShindyWebService
         [Fact]
         public void EventModule_PageNumberPageSize_GetEventCalled()
         {
-            var response = app.Get("/events/",
-                 with =>
-                 {
-                     with.HttpRequest();
-                     with.Query("pagenumber", "1");
-                     with.Query("pagesize", "2");
-                 });
+            var response = CallWebService("/events/", "2", "1");
 
             var events = response.Body.DeserializeJson<IEnumerable<Event>>();
 
-            Assert.Equal(events.Count(), eventData.Count());
             Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(events.Count(), eventData.Count());
             Assert.Contains("events/1", response.Body.AsString());
             Assert.Contains("events/2", response.Body.AsString());
             eventBroker.Verify(m => m.GetEvents(2, 1));
+        }
+
+        [Fact]
+        public void EventModule_InvalidPageNumberPageSize_GetEventCalled()
+        {
+            var response = CallWebService("/events/", "abcd", "efgh");
+
+            var events = response.Body.DeserializeJson<IEnumerable<Event>>();
+
+            Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(events.Count(), eventData.Count());
+            Assert.Contains("events/1", response.Body.AsString());
+            Assert.Contains("events/2", response.Body.AsString());
+            eventBroker.Verify(m => m.GetEvents(10, 1));
+        }
+
+        [Fact]
+        public void EventModule_UpcomingDefaultParams_GetEventCalled()
+        {
+            var response = CallWebService("/events/upcoming/");
+
+            Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Contains("events/1", response.Body.AsString());
+            eventBroker.Verify(m => m.GetUpcomingEvents(10, 1));
+        }
+
+        [Fact]
+        public void EventModule_UpcomingPageNumberPageSize_GetEventCalled()
+        {
+            var response = CallWebService("/events/upcoming", "2", "1");
+
+            var events = response.Body.DeserializeJson<IEnumerable<Event>>();
+
+            Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(events.Count(), eventData.Count());
+            Assert.Contains("events/1", response.Body.AsString());
+            Assert.Contains("events/2", response.Body.AsString());
+            eventBroker.Verify(m => m.GetUpcomingEvents(2, 1));
+        }
+
+        [Fact]
+        public void EventModule_GroupUpcomingDefaultParams_GetEventCalled()
+        {
+            var response = CallWebService("/events/dotnet miami/upcoming/");
+
+            Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Contains("events/1", response.Body.AsString());
+            eventBroker.Verify(m => m.GetUpcomingEvents("dotnet miami", 10, 1, false));
+        }
+
+        [Fact]
+        public void EventModule_GroupUpcomingPageNumberPageSize_GetEventCalled()
+        {
+            var response = CallWebService("/events/dotnet miami/upcoming", "2", "1");
+
+            var events = response.Body.DeserializeJson<IEnumerable<Event>>();
+
+            Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(events.Count(), eventData.Count());
+            Assert.Contains("events/1", response.Body.AsString());
+            Assert.Contains("events/2", response.Body.AsString());
+            eventBroker.Verify(m => m.GetUpcomingEvents("dotnet miami", 2, 1, false));
         }
 
     }
