@@ -80,7 +80,6 @@ namespace EventTest.ShindyWebService
         public void EventModule_DefaultParams_GetEventCalled()
         {
             var response = CallWebService("/events/");
-
             var events = response.Body.DeserializeJson<IEnumerable<Event>>();
 
             Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
@@ -93,7 +92,6 @@ namespace EventTest.ShindyWebService
         public void EventModule_PageNumberPageSize_GetEventCalled()
         {
             var response = CallWebService("/events/", "2", "1");
-
             var events = response.Body.DeserializeJson<IEnumerable<Event>>();
 
             Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
@@ -107,7 +105,6 @@ namespace EventTest.ShindyWebService
         public void EventModule_InvalidPageNumberPageSize_GetEventCalled()
         {
             var response = CallWebService("/events/", "abcd", "efgh");
-
             var events = response.Body.DeserializeJson<IEnumerable<Event>>();
 
             Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
@@ -121,8 +118,10 @@ namespace EventTest.ShindyWebService
         public void EventModule_UpcomingDefaultParams_GetEventCalled()
         {
             var response = CallWebService("/events/upcoming/");
+            var events = response.Body.DeserializeJson<IEnumerable<Event>>();
 
             Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(events.Count(), eventData.Count());
             Assert.Contains("events/1", response.Body.AsString());
             eventBroker.Verify(m => m.GetUpcomingEvents(10, 1));
         }
@@ -131,7 +130,6 @@ namespace EventTest.ShindyWebService
         public void EventModule_UpcomingPageNumberPageSize_GetEventCalled()
         {
             var response = CallWebService("/events/upcoming", "2", "1");
-
             var events = response.Body.DeserializeJson<IEnumerable<Event>>();
 
             Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
@@ -142,11 +140,26 @@ namespace EventTest.ShindyWebService
         }
 
         [Fact]
+        public void EventModule_UpcomingInvalidPageNumberPageSize_GetEventCalled()
+        {
+            var response = CallWebService("/events/upcoming", "abcd", "efgh");
+            var events = response.Body.DeserializeJson<IEnumerable<Event>>();
+
+            Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(events.Count(), eventData.Count());
+            Assert.Contains("events/1", response.Body.AsString());
+            Assert.Contains("events/2", response.Body.AsString());
+            eventBroker.Verify(m => m.GetUpcomingEvents(10, 1));
+        }
+
+        [Fact]
         public void EventModule_GroupUpcomingDefaultParams_GetEventCalled()
         {
             var response = CallWebService("/events/dotnet miami/upcoming/");
+            var events = response.Body.DeserializeJson<IEnumerable<Event>>();
 
             Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(events.Count(), eventData.Count());
             Assert.Contains("events/1", response.Body.AsString());
             eventBroker.Verify(m => m.GetUpcomingEvents("dotnet miami", 10, 1, false));
         }
@@ -155,7 +168,6 @@ namespace EventTest.ShindyWebService
         public void EventModule_GroupUpcomingPageNumberPageSize_GetEventCalled()
         {
             var response = CallWebService("/events/dotnet miami/upcoming", "2", "1");
-
             var events = response.Body.DeserializeJson<IEnumerable<Event>>();
 
             Assert.Equal(Nancy.HttpStatusCode.OK, response.StatusCode);
