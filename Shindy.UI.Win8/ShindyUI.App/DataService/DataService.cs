@@ -13,7 +13,7 @@ namespace ShindyUI.App
 {
     public static class DataService
     {
-        public static string ServiceURL = Configuration.ServiceURL + "/Events/?pagenumber=1";
+        public static string ServiceURL = Configuration.ServiceURL + "/events";
 
         public async static Task<IEnumerable<Event>> GetEvents()
         {
