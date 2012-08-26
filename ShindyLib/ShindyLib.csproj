@@ -69,12 +69,14 @@
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Extensions\EntityHelper.cs" />
     <Compile Include="Extensions\GlobalHelper.cs" />
+    <Compile Include="Extensions\RavenSessionProviderTestExtension.cs" />
+    <Compile Include="Interfaces\IPersonSvcBroker.cs" />
     <Compile Include="Interfaces\IRavenSessionProvider.cs" />
     <Compile Include="Interfaces\IServiceBroker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Session.cs" />
     <Compile Include="Entities\Sponsor.cs" />
-    <Compile Include="RavenSessionProvider.cs" />
+    <Compile Include="Store\RavenSessionProvider.cs" />
     <Compile Include="ServiceBrokers\EventsSvcBroker.cs" />
     <Compile Include="Interfaces\IEventsSvcBroker.cs" />
     <Compile Include="ServiceBrokers\JanrainBroker.cs" />

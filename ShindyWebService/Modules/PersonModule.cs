@@ -21,7 +21,7 @@ namespace EventWebService
     /// </summary>
     public class PersonModule : NancyModule
     {
-        public PersonModule() :base("/Person")
+        public PersonModule(PersonSvcBroker personBroker) :base("/Person")
         {
             //Now a get request for testing purposes, need to convert to form post
             Get["/signin/{authType}"] = x =>
@@ -57,9 +57,6 @@ namespace EventWebService
 
             Get["/doauth"] = x =>
             {
-                
-                var personBroker = new PersonSvcBroker();
-
                 //Parse query string in order to retrieve the AuthType
                 if (Request.Query.authType.HasValue)
                 {  

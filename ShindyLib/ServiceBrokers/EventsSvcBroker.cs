@@ -18,11 +18,6 @@ namespace EventLibrary.ServiceBrokers
         private IRavenSessionProvider SessionProvider;
         internal int defaultPageSize = 10;
 
-        public EventsSvcBroker()
-        {
-            SessionProvider = new RavenSessionProvider();
-        }
-
         public EventsSvcBroker(IRavenSessionProvider sessionProvider)
         {
             SessionProvider = sessionProvider;
@@ -137,7 +132,7 @@ namespace EventLibrary.ServiceBrokers
             }
             return results;
         }
-
+        
         internal IEnumerable<Event> GetEventsGroup(string groupName, int pageSize, int pageNumber)
         {
             IEnumerable<Event> results = null;

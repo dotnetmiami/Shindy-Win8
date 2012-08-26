@@ -11,6 +11,20 @@ namespace EventTest
 {
     public class StubRavenSessionProvider : IRavenSessionProvider
     {
+         public bool IsLocal
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool IsRemote
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string Environment
+        {
+            get { throw new NotImplementedException(); }
+        }
         public EmbeddableDocumentStore Store { get; set; }
 
         public StubRavenSessionProvider()
@@ -198,5 +212,7 @@ namespace EventTest
             }
         }
 
+
+        
     }
 }
