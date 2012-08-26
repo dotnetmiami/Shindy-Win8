@@ -12,10 +12,14 @@ using EventLibrary.Interfaces;
 
 namespace EventLibrary.ServiceBrokers
 {
-    public class PersonSvcBroker
+    public class PersonSvcBroker : IPersonSvcBroker
     {
         #region PROPERTIES/FIELDS
-        private IRavenSessionProvider SessionProvider;
+        public IRavenSessionProvider SessionProvider
+        {
+            get;
+            set;
+        }
 
         #endregion
 
@@ -87,8 +91,6 @@ namespace EventLibrary.ServiceBrokers
                 return session.Query<Person>().ToList();
             }
         }
-
-
 
         public void ExampleRoleCheck()
         {

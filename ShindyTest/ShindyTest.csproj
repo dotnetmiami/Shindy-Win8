@@ -99,6 +99,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -110,8 +111,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\XUnitExtensions.cs" />
     <Compile Include="ShindyLib.Test\EventSvcBrokerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShindyLib.Test\RavenSessionProviderTest.cs" />
     <Compile Include="ShindyWebService.Test\EventsModuleTest.cs" />
     <Compile Include="Stub\StubRavenSessionProvider.cs" />
   </ItemGroup>
