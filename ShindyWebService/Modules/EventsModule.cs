@@ -6,6 +6,7 @@ using System.Web;
 using EventLibrary.Entities;
 using EventLibrary.ServiceBrokers;
 using Nancy;
+using System.Web.Management;
 
 namespace EventWebService.Modules
 {
@@ -20,14 +21,23 @@ namespace EventWebService.Modules
 
             Get[""] = parameters =>
             {
-                int pageNumber = GetPageNumber();
-                int pageSize = GetPageSize();
-                IEnumerable<Event> results = eventBroker.GetEvents(pageSize, pageNumber);
-                if (results.Any())
+                try
                 {
-                    return Response.AsJson(results);
+                    int pageNumber = GetPageNumber();
+                    int pageSize = GetPageSize();
+                    IEnumerable<Event> results = eventBroker.GetEvents(pageSize, pageNumber);
+                    if (results.Any())
+                    {
+                        return Response.AsJson(results);
+                    }
+                    return new Response() { StatusCode = HttpStatusCode.NotFound };
                 }
-                return new Response() { StatusCode = HttpStatusCode.NotFound };
+                catch (Exception ex)
+                {
+                    new LogEvent(ex.Message + " // Stack " + ex.StackTrace).Raise();
+                    return new Response() { StatusCode = HttpStatusCode.NotFound };
+                }
+
             };
 
             /// <summary>            
@@ -175,5 +185,12 @@ namespace EventWebService.Modules
             return (pageNumber == 0) ? defaultPageNumber : pageNumber;
         }
 
+        public class LogEvent : WebRequestErrorEvent
+        {
+            public LogEvent(string message)
+                : base(null, null, 100001, new Exception(message))
+            {
+            }
+        }
     }
 }
