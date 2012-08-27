@@ -102,6 +102,8 @@ namespace EventLibrary
         {
             try
             {
+                logger.Debug("Opening RavenDB Session");
+
                 ConnectionStringParser<RavenConnectionStringOptions> parser = null;
                
                 //Allow connection to be established both by name and by value for unit testing purposes
