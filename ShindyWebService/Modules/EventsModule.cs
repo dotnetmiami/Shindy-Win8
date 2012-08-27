@@ -34,7 +34,7 @@ namespace EventWebService.Modules
                 }
                 catch (Exception ex)
                 {
-                    new LogEvent("RavenDB Config: " + ConfigurationManager.ConnectionStrings["RavenDB"] + "// Error " + ex.Message + " // Stack " + ex.StackTrace).Raise();
+                    new LogEvent("RavenDB Config: " + ConfigurationManager.ConnectionStrings["RavenDB"].ConnectionString + " // Error " + ex.Message + " // Stack " + ex.StackTrace).Raise();
                     return new Response() { StatusCode = HttpStatusCode.NotFound };
                 }
 
