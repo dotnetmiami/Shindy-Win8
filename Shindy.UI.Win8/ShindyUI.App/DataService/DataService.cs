@@ -13,7 +13,7 @@ namespace ShindyUI.App
 {
     public static class DataService
     {
-        public const string ServiceURL = "http://shindy.apphb.com/Events/?pagenumber=1";
+        public static string ServiceURL = Configuration.ServiceURL + "/events";
 
         public async static Task<IEnumerable<Event>> GetEvents()
         {
@@ -28,6 +28,7 @@ namespace ShindyUI.App
                 }
                 catch (Exception)
                 {
+                    // TODO: Why are we throwing a new exception?
                     throw new Exception(string.Format("An error occured communicating with {0}"));
                 }
             }
@@ -46,6 +47,7 @@ namespace ShindyUI.App
                 }
                 catch (Exception)
                 {
+                    // TODO: Why are we throwing a new exception?
                     throw new Exception(string.Format("An error occured communicating with {0}"));
                 }
             }

@@ -80,6 +80,8 @@ namespace EventLibrary
             }
         }
 
+        public static string ApiKey { get; set; }
+
         #endregion
 
         public RavenSessionProvider() {}
@@ -101,7 +103,7 @@ namespace EventLibrary
             try
             {
                 ConnectionStringParser<RavenConnectionStringOptions> parser = null;
-
+               
                 //Allow connection to be established both by name and by value for unit testing purposes
                 var connStringNameExists = ConfigurationManager.ConnectionStrings["RavenDB"] != null;
                 if (connStringNameExists)
@@ -127,6 +129,8 @@ namespace EventLibrary
                     logger.Debug("Parsing API Key");
                     DocumentStore.ApiKey = parser.ConnectionStringOptions.ApiKey;
                 }
+                RemoteUrl = parser.ConnectionStringOptions.Url;
+                ApiKey = parser.ConnectionStringOptions.ApiKey;
 
                 var session = DocumentStore.Initialize().OpenSession(IsRemote ? null : StoreName);
                 return session;

@@ -11,7 +11,8 @@ namespace EventWebService
         
         protected override void ApplicationStartup(TinyIoC.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines)
         {
-           base.ApplicationStartup(container, pipelines);            
+           base.ApplicationStartup(container, pipelines);
+           StaticConfiguration.DisableErrorTraces = false;
         }
     }
 }
