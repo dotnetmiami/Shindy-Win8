@@ -95,6 +95,8 @@ namespace EventLibrary
         private static  DocumentStore CreateDocumentStore()
         {    
             DocumentStore store = new DocumentStore();
+            //Set static private variable
+            _documentStore = store;
             return store;
         }
 
