@@ -80,7 +80,11 @@ namespace EventLibrary
             }
         }
 
-        public static string ApiKey { get; set; }
+        public static string ApiKey 
+        { 
+            get;
+            set;
+        }
 
         #endregion
 
@@ -124,24 +128,23 @@ namespace EventLibrary
                 {
                     logger.Info("Parsing RavenDB connection string");
                     parser.Parse();
+                    logger.Info("Connectionstring Value:", parser.ConnectionStringOptions.Url);
                 }
 
                 DocumentStore.Url = IsRemote ? parser.ConnectionStringOptions.Url : LocalUrl;
 
                 if (IsRemote)
                 {
-                    logger.Debug("Extracting API key from parsing results");
+                    logger.Info("Extracting API key from parsing results");
                     DocumentStore.ApiKey = parser.ConnectionStringOptions.ApiKey;
                 }
-                RemoteUrl = parser.ConnectionStringOptions.Url;
-                ApiKey = parser.ConnectionStringOptions.ApiKey;
 
                 var session = DocumentStore.Initialize().OpenSession(IsRemote ? null : StoreName);
                 return session;
             }
             catch (Exception ex)
             {
-                logger.Info("Error opening session:" + ex.Message + ex.StackTrace);
+                logger.Error("Error opening session:" + ex.Message + ex.StackTrace);
                 return null;
             }
         }
