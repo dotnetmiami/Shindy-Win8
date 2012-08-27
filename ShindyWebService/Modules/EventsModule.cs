@@ -6,6 +6,7 @@ using System.Web;
 using EventLibrary.Entities;
 using EventLibrary.ServiceBrokers;
 using Nancy;
+using NLog;
 using System.Web.Management;
 
 namespace EventWebService.Modules
@@ -14,15 +15,17 @@ namespace EventWebService.Modules
     {
         internal int defaultPageSize = 10;
         internal int defaultPageNumber = 1;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public EventsModule(EventLibrary.IEventsSvcBroker eventBroker)
             : base("/events")
         {
-
+            logger.Info("Loading events");
             Get[""] = parameters =>
             {
                 try
                 {
+                    
                     int pageNumber = GetPageNumber();
                     int pageSize = GetPageSize();
                     IEnumerable<Event> results = eventBroker.GetEvents(pageSize, pageNumber);

@@ -49,6 +49,9 @@
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\packages\DotNetOpenAuth.3.5.0.12037-refresh3\lib\DotNetOpenAuth.dll</HintPath>
     </Reference>
+    <Reference Include="le_nlog">
+      <HintPath>..\packages\le_nlog.2.0.3\lib\4.0\le_nlog.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Nancy">
       <HintPath>..\packages\Nancy.0.11.0\lib\net40\Nancy.dll</HintPath>

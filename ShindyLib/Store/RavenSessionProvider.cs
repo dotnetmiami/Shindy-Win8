@@ -102,7 +102,7 @@ namespace EventLibrary
         {
             try
             {
-                logger.Debug("Opening RavenDB Session");
+                logger.Info("Opening RavenDB Session");
 
                 ConnectionStringParser<RavenConnectionStringOptions> parser = null;
                
@@ -110,7 +110,7 @@ namespace EventLibrary
                 var connStringNameExists = ConfigurationManager.ConnectionStrings["RavenDB"] != null;
                 if (connStringNameExists)
                 {
-                    logger.Debug("RavenDB connection string found");
+                    logger.Info("RavenDB appharbor connection string found");
                     parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionStringName("RavenDB");
                 }
                 //Check to see if RemoteUrl was set by unit test
@@ -120,7 +120,7 @@ namespace EventLibrary
                 //Only parse for remote API access if settings are available
                 if (connStringNameExists || !string.IsNullOrEmpty(RemoteUrl))
                 {
-                    logger.Debug("Parsing connection string");
+                    logger.Info("Parsing RavenDB connection string");
                     parser.Parse();
                 }
 
@@ -128,7 +128,7 @@ namespace EventLibrary
 
                 if (IsRemote)
                 {
-                    logger.Debug("Parsing API Key");
+                    logger.Debug("Extracting API key from parsing results");
                     DocumentStore.ApiKey = parser.ConnectionStringOptions.ApiKey;
                 }
                 RemoteUrl = parser.ConnectionStringOptions.Url;
@@ -139,7 +139,7 @@ namespace EventLibrary
             }
             catch (Exception ex)
             {
-                logger.Warn("Error opening session:" + ex.Message + ex.StackTrace);
+                logger.Info("Error opening session:" + ex.Message + ex.StackTrace);
                 return null;
             }
         }
