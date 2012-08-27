@@ -7,6 +7,7 @@ using EventLibrary.Interfaces;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Abstractions.Data;
+using NLog;
 
 namespace EventLibrary
 {
@@ -19,10 +20,11 @@ namespace EventLibrary
         #region PROPERTIES
          
         //private static fields created to circumvent the configurationmanager in unit tests
-         private static bool? isRemote;
-         private static string storeName;
-         private static string localUrl;
-         private static string remoteUrl;
+        private static bool? isRemote;
+        private static string storeName;
+        private static string localUrl;
+        private static string remoteUrl;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static DocumentStore _documentStore;
         public static  DocumentStore DocumentStore
@@ -96,27 +98,44 @@ namespace EventLibrary
 
         public virtual IDocumentSession OpenSession()
         {
-            ConnectionStringParser<RavenConnectionStringOptions> parser = null;
-           
-            //Allow connection to be established both by name and by value for unit testing purposes
-            var connStringNameExists =  ConfigurationManager.ConnectionStrings["RavenDB"] != null;
-            if (connStringNameExists)
-                parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionStringName("RavenDB");
-            
-            if(!string.IsNullOrEmpty(RemoteUrl))
-                parser = parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionString(RemoteUrl); 
-            
-            //Only parse for remote API access if settings are available
-            if(connStringNameExists || !string.IsNullOrEmpty(RemoteUrl))
-                parser.Parse();
+            try
+            {
+                ConnectionStringParser<RavenConnectionStringOptions> parser = null;
 
-            DocumentStore.Url = IsRemote ? parser.ConnectionStringOptions.Url : LocalUrl;
-          
-            if(IsRemote)
-                DocumentStore.ApiKey = parser.ConnectionStringOptions.ApiKey;
-            
-            var session = DocumentStore.Initialize().OpenSession(IsRemote ? null : StoreName);
-            return session;
+                //Allow connection to be established both by name and by value for unit testing purposes
+                var connStringNameExists = ConfigurationManager.ConnectionStrings["RavenDB"] != null;
+                if (connStringNameExists)
+                {
+                    logger.Debug("RavenDB connection string found");
+                    parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionStringName("RavenDB");
+                }
+                //Check to see if RemoteUrl was set by unit test
+                if (!string.IsNullOrEmpty(RemoteUrl))
+                    parser = parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionString(RemoteUrl);
+
+                //Only parse for remote API access if settings are available
+                if (connStringNameExists || !string.IsNullOrEmpty(RemoteUrl))
+                {
+                    logger.Debug("Parsing connection string");
+                    parser.Parse();
+                }
+
+                DocumentStore.Url = IsRemote ? parser.ConnectionStringOptions.Url : LocalUrl;
+
+                if (IsRemote)
+                {
+                    logger.Debug("Parsing API Key");
+                    DocumentStore.ApiKey = parser.ConnectionStringOptions.ApiKey;
+                }
+
+                var session = DocumentStore.Initialize().OpenSession(IsRemote ? null : StoreName);
+                return session;
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("Error opening session:" + ex.Message + ex.StackTrace);
+                return null;
+            }
         }
     }
 }
