@@ -27,7 +27,7 @@ namespace EventTest
             IRavenSessionProvider sessionProvider = new RavenSessionProvider();
             var session = sessionProvider.OpenSession();
             XUnitExtensions.NotNull(session);
-        }*/
+        }
 
         [Fact]
         public void InitLocalSessionSuccessful()
@@ -38,8 +38,7 @@ namespace EventTest
             IRavenSessionProvider sessionProvider = new RavenSessionProvider();
             var session = sessionProvider.OpenSession();
             XUnitExtensions.NotNull(session);
-        }
-
+        }*/
         #endregion
     }
 }

@@ -13,110 +13,68 @@ namespace EventLibrary
     /*
      * Adapted from https://github.com/NancyFx/DinnerParty/blob/master/src/Models/RavenDB/RavenSessionProvider.cs
      */
-    public  class RavenSessionProvider :IRavenSessionProvider
+    public class RavenSessionProvider : IRavenSessionProvider
     {
 
         #region PROPERTIES
-         
-        //private static fields created to circumvent the configurationmanager in unit tests
-         private static bool? isRemote;
-         private static string storeName;
-         private static string localUrl;
-         private static string remoteUrl;
+        private DocumentStore _documentStore;
 
-        private static DocumentStore _documentStore;
-        public static  DocumentStore DocumentStore
+        public DocumentStore DocumentStore
         {
             get { return (_documentStore ?? (_documentStore = CreateDocumentStore())); }
         }
-              
-        public static bool IsRemote
-        {
-            get 
-            {
-                return isRemote ?? ConfigurationManager.AppSettings["environment"] != null && ConfigurationManager.AppSettings["environment"].Equals("remote"); 
-            }
-            set
-            {
-                isRemote = value;
-            }
-        }
-       
-        public static  string StoreName
+
+        public string LocalUrl
         {
             get
             {
-                return storeName ?? ConfigurationManager.AppSettings["storename"].ToString();
-            }
-            set
-            {
-                storeName = value;
-            }
-        }
-               
-        public static string LocalUrl
-        {
-            get
-            {
-                return localUrl ?? ConfigurationManager.ConnectionStrings["RavenDBLocal"].ToString();
-            }
-            set
-            {
-                localUrl = value;
-            }
-        }
-                
-        public static string RemoteUrl
-        {
-            get
-            {
-                return remoteUrl;
-            }
-            set
-            {
-                remoteUrl = value;
+                return ConfigurationManager.AppSettings["RavenDBLocal"].ToString();
             }
         }
 
+
+        public string StoreName
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["storename"].ToString();
+            }
+        }
+
+        public ConnectionStringParser<RavenConnectionStringOptions> Parser
+        {
+            get;
+            set;
+        }
         #endregion
 
-        public RavenSessionProvider() {}
-        
-        /// <summary>
-        /// Static method to create document store to make sure that only one instance of the store is 
-        /// created per application lifecycle. Raven needs to make the store init more efficient, so
-        /// such compromise is not needed. mongo does that better :P
-        /// </summary>
-        /// <returns></returns>
-        private static  DocumentStore CreateDocumentStore()
-        {    
-            DocumentStore store = new DocumentStore();
+        #region CONSTRUCTOR
+        public RavenSessionProvider()
+        {
+            this.Parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionStringName("RavenDB");
+        }
+        #endregion
+
+        #region HELPERS
+        private DocumentStore CreateDocumentStore()
+        {
+            this.Parser.Parse();
+
+            DocumentStore store = new DocumentStore
+            {
+                Url = string.IsNullOrWhiteSpace(this.Parser.ConnectionStringOptions.ApiKey) ? LocalUrl : this.Parser.ConnectionStringOptions.Url,
+                ApiKey = Parser.ConnectionStringOptions.ApiKey
+            };
+            store.Initialize();
+
             return store;
         }
-
+        
         public virtual IDocumentSession OpenSession()
         {
-            ConnectionStringParser<RavenConnectionStringOptions> parser = null;
-           
-            //Allow connection to be established both by name and by value for unit testing purposes
-            var connStringNameExists =  ConfigurationManager.ConnectionStrings["RavenDB"] != null;
-            if (connStringNameExists)
-                parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionStringName("RavenDB");
-            
-            if(!string.IsNullOrEmpty(RemoteUrl))
-                parser = parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionString(RemoteUrl); 
-            
-            //Only parse for remote API access if settings are available
-            if(connStringNameExists || !string.IsNullOrEmpty(RemoteUrl))
-                parser.Parse();
-
-            DocumentStore.Url = IsRemote ? parser.ConnectionStringOptions.Url : LocalUrl;
-          
-            if(IsRemote)
-                DocumentStore.ApiKey = parser.ConnectionStringOptions.ApiKey;
-            
-            var session = DocumentStore.Initialize().OpenSession(IsRemote ? null : StoreName);
+            var session = DocumentStore.OpenSession(!string.IsNullOrWhiteSpace(this.Parser.ConnectionStringOptions.ApiKey) ? null : StoreName);
             return session;
         }
+        #endregion
     }
 }
