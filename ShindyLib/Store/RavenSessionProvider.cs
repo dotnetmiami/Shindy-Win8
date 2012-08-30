@@ -28,16 +28,23 @@ namespace EventLibrary
         {
             get
             {
-                return ConfigurationManager.AppSettings["RavenDBLocal"].ToString();
+                return ConfigurationManager.ConnectionStrings["RavenDBLocal"].ToString();
             }
         }
-
 
         public string StoreName
         {
             get
             {
                 return ConfigurationManager.AppSettings["storename"].ToString();
+            }
+        }
+
+        public bool IsRemote
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["RavenDB"] != null && !string.IsNullOrWhiteSpace(ConfigurationManager.ConnectionStrings["RavenDB"].ToString());
             }
         }
 
@@ -51,20 +58,23 @@ namespace EventLibrary
         #region CONSTRUCTOR
         public RavenSessionProvider()
         {
-            this.Parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionStringName("RavenDB");
+            this.Parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionStringName(IsRemote ? "RavenDB" : "RavenDBLocal"); 
         }
         #endregion
 
         #region HELPERS
         private DocumentStore CreateDocumentStore()
-        {
+        {   
             this.Parser.Parse();
 
             DocumentStore store = new DocumentStore
             {
-                Url = string.IsNullOrWhiteSpace(this.Parser.ConnectionStringOptions.ApiKey) ? LocalUrl : this.Parser.ConnectionStringOptions.Url,
-                ApiKey = Parser.ConnectionStringOptions.ApiKey
+                Url = this.Parser.ConnectionStringOptions.Url
             };
+
+            if (IsRemote)
+                store.ApiKey = Parser.ConnectionStringOptions.ApiKey;
+
             store.Initialize();
 
             return store;
