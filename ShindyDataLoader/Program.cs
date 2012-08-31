@@ -197,6 +197,7 @@ namespace ShindyDataLoader
                 // attempt to download JSON data as a string
                 try
                 {
+                    web.Encoding = Encoding.UTF8;
                     urlData = web.DownloadString(url);
 
                 }
