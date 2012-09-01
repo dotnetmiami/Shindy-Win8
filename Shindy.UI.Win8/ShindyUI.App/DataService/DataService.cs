@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
-using ShindyUI.App.DataModel;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-namespace ShindyUI.App
+﻿namespace ShindyUI.App
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Net;
+
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+
+    using ShindyUI.App.Model;
+    using ShindyUI.App.Model.ViewModel;
+
     public static class DataService
     {
-        public static string ServiceURL = Configuration.ServiceURL + "/events";
+        public static string ServiceURL = Configuration.Configuration.ServiceUrl + "/events";
 
         public async static Task<IEnumerable<Event>> GetEvents()
         {

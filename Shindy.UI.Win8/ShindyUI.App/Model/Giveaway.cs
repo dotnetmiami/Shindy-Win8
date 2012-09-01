@@ -1,7 +1,7 @@
-﻿using ShindyUI.App.Common;
-
-namespace ShindyUI.App.DataModel
+namespace ShindyUI.App.Model
 {
+    using ShindyUI.App.Common;
+
     public class Giveaway : BindableBase
     {
         public Giveaway()

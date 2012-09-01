@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ShindyUI.App.Common;
-
-namespace ShindyUI.App.DataModel
+namespace ShindyUI.App.Model
 {
-    public class Address : BindableBase
+    using GalaSoft.MvvmLight;
+
+    using ShindyUI.App.Common;
+
+    public class Address : ViewModelBase
     {
+        #region Fields
+
+        #endregion
+
         public Address()
         {
         

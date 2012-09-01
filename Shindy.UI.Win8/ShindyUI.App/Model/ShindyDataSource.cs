@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShindyUI.App.Data;
-
-namespace ShindyUI.App.DataModel
+namespace ShindyUI.App.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+
     /// <summary>
     /// Creates a collection of groups and items with hard-coded content.
     /// </summary>

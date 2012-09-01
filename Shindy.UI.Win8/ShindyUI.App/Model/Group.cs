@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ShindyUI.App.Common;
-
-namespace ShindyUI.App.DataModel
+namespace ShindyUI.App.Model
 {
-     /// <summary>
-    /// Admin - Can administer the web application
-    /// Entry - Can enter information in web application
-    /// User - Can login to the web application
-    /// Member - Has attended at least one event
-    /// Speaker - Has spoken at least on event 
-    /// </summary>
-    public class Role : BindableBase
+    using System.Collections.Generic;
+
+    using ShindyUI.App.Common;
+
+    public class Group : BindableBase
     {
-        public Role()
+        public Group()
         {
         
         }
@@ -25,6 +16,7 @@ namespace ShindyUI.App.DataModel
             get { return this.id; }
             set { this.SetProperty(ref this.id, value); }
         }
+
         private string name;
         public string Name
         {
@@ -38,6 +30,9 @@ namespace ShindyUI.App.DataModel
             get { return this.description; }
             set { this.SetProperty(ref this.description, value); }
         }
-        
+
+        public virtual List<Event> Events { get; set; }
+
     }
 }
+

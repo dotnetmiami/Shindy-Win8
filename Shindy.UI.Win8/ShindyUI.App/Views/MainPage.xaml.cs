@@ -1,10 +1,8 @@
-﻿using ShindyUI.App.Data;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ShindyUI.App.DataModel;
+
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -20,6 +18,8 @@ using BaseDataItem = ShindyUI.App.Data.BaseDataItem;
 
 namespace ShindyUI.App
 {
+    using ShindyUI.App.Model.DataModel;
+
     /// <summary>
     /// A page that displays a grouped collection of items.
     /// </summary>

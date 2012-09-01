@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShindyUI.App
+﻿namespace ShindyUI.App.Configuration
 {
     public static class Configuration
     {
-        public static string ServiceURL
+        public static string ServiceUrl
         {
             get { return "http://shindy-dev.apphb.com"; }
         }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ShindyUI.App.Common;
-
-namespace ShindyUI.App.DataModel
+namespace ShindyUI.App.Model
 {
+    using System.Collections.Generic;
+
+    using ShindyUI.App.Common;
 
     public class Person : BindableBase
     {

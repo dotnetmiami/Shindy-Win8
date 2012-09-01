@@ -18,7 +18,7 @@ using System.Xml.Linq;
 
 namespace ShindyUI.App
 {
-    using ShindyUI.App.DataModel;
+    using ShindyUI.App.Model.DataModel;
 
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

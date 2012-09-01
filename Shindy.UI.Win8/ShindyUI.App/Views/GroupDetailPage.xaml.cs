@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ShindyUI.App.DataModel;
+
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -18,6 +18,8 @@ using BaseDataItem = ShindyUI.App.Data.BaseDataItem;
 
 namespace ShindyUI.App
 {
+    using ShindyDataSource = ShindyUI.App.Model.DataModel.ShindyDataSource;
+
     /// <summary>
     /// A page that displays an overview of a single group, including a preview of the items
     /// within the group.

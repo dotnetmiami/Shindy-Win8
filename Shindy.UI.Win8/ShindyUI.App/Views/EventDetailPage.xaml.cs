@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using ShindyUI.App.Common;
-using ShindyUI.App.DataModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using BaseDataItem = ShindyUI.App.Data.BaseDataItem;
-
-// The Item Detail Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234232
-
-namespace ShindyUI.App
+﻿namespace ShindyUI.App
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
+    using ShindyUI.App.Common;
+    using ShindyUI.App.Model.DataModel;
+
+    using Windows.Foundation;
+    using Windows.Foundation.Collections;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Controls.Primitives;
+    using Windows.UI.Xaml.Data;
+    using Windows.UI.Xaml.Input;
+    using Windows.UI.Xaml.Media;
+    using Windows.UI.Xaml.Navigation;
+
+    using BaseDataItem = ShindyUI.App.Data.BaseDataItem;
+
     /// <summary>
     /// A page that displays details for a single item within a group while allowing gestures to
     /// flip through other items belonging to the same group.

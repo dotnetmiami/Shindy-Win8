@@ -1,16 +1,3 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Windows.ApplicationModel.Resources.Core;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-
 // The data model defined by this file serves as a representative example of a strongly-typed
 // model that supports notification when members are added, removed, or modified.  The property
 // names chosen coincide with data bindings in the standard item templates.
@@ -18,10 +5,15 @@ using Windows.UI.Xaml.Media.Imaging;
 // Applications may use this model as a starting point and build on it, or discard it entirely and
 // replace it with something appropriate to their needs.
 
-namespace ShindyUI.App.Data
+namespace ShindyUI.App.Model
 {
+    using System;
+
+    using Windows.UI.Xaml.Media;
+    using Windows.UI.Xaml.Media.Imaging;
+
     /// <summary>
-    /// Base class for <see cref="BaseDataItem"/> and <see cref="BaseDataGroup"/> that
+    /// Base class for <see cref="ShindyUI.App.Model.DataModel.BaseDataItem"/> and <see cref="BaseDataGroup"/> that
     /// defines properties common to both.
     /// </summary>
     [Windows.Foundation.Metadata.WebHostHidden]

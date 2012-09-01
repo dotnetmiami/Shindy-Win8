@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using ShindyUI.App.Common;
-
-namespace ShindyUI.App.DataModel
+namespace ShindyUI.App.Model
 {
+    using System.Collections.ObjectModel;
+
+    using ShindyUI.App.Common;
+
     public class Session : BindableBase
     {
         public Session()
