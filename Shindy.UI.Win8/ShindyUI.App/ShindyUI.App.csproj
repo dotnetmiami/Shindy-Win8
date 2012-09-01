@@ -107,18 +107,18 @@
     </Compile>
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="DataService\DataService.cs" />
-    <Compile Include="Model\Address.cs" />
-    <Compile Include="Model\Event.cs" />
+    <Compile Include="Model\AddressViewModel.cs" />
     <Compile Include="Model\EventGroup.cs" />
-    <Compile Include="Model\Giveaway.cs" />
-    <Compile Include="Model\Group.cs" />
-    <Compile Include="Model\Location.cs" />
-    <Compile Include="Model\Person.cs" />
-    <Compile Include="Model\Role.cs" />
-    <Compile Include="Model\Session.cs" />
+    <Compile Include="Model\EventViewModel.cs" />
+    <Compile Include="Model\GiveawayViewModel.cs" />
+    <Compile Include="Model\GroupViewModel.cs" />
+    <Compile Include="Model\LocationViewModel.cs" />
+    <Compile Include="Model\PersonViewModel.cs" />
+    <Compile Include="Model\RoleViewModel.cs" />
+    <Compile Include="Model\SessionViewModel.cs" />
     <Compile Include="Model\ShindyD3ataSource.cs" />
     <Compile Include="Model\ShindyDataSource.cs" />
-    <Compile Include="Model\Sponsor.cs" />
+    <Compile Include="Model\SponsorViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
